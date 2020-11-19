@@ -37,6 +37,10 @@ func (diff *AppDiff) CalculateDiff() ([]diffmatchpatch.Diff, error) {
 }
 
 func appSpecToString(app *godo.App) (string, error) {
+	if app.Spec == nil {
+		return "", nil
+	}
+
 	b, err := yaml.Marshal(app.Spec)
 	if err != nil {
 		return "", errors.Wrapf(err, "Error converting spec to json string for app %s", app.Spec.Name)

@@ -12,14 +12,30 @@ type diffCmd struct {
 	*rootCmd
 }
 
+var (
+	diffLong = `Diff local app spec against app spec running in DigitalOcean
+
+`
+	diffExample = `  # Diff using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
+appfile diff
+
+  # Diff using appfile.yaml in custom location, review environment and access token option
+  appfile diff --file /path/to/appfile.yaml --environment review --access-token $TOKEN
+
+  # Diff with debug output
+  appfile sync --log-level debug`
+)
+
 func newDiffCmd(rootCmd *rootCmd) *cobra.Command {
 	diff := diffCmd{
 		rootCmd: rootCmd,
 	}
 
 	cmd := &cobra.Command{
-		Use:   "diff",
-		Short: "Deploy app platform specifications to DigitalOcean",
+		Use:     "diff",
+		Short:   "Diff local app spec against app spec running in DigitalOcean",
+		Long:    diffLong,
+		Example: diffExample,
 		Run: func(cmd *cobra.Command, args []string) {
 			diff.run()
 		},

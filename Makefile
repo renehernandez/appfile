@@ -15,7 +15,7 @@ test:
 .PHONY: test
 
 build:
-	go build -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${TAG}' ${TARGETS}
+	go build -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${TAG}'
 .PHONY: build
 
 generate:
@@ -29,7 +29,7 @@ pristine: generate fmt
 
 cross:
 	echo "TARGETS: ${TARGETS}"
-	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/roboll/helmfile/pkg/app/version.Version=${TAG}' ${TARGETS}
+	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/roboll/helmfile/pkg/app/version.Version=${TAG}'
 .PHONY: cross
 
 release: pristine cross

@@ -1,10 +1,13 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/renehernandez/appfile/internal/apps"
 	"github.com/renehernandez/appfile/internal/errors"
 	"github.com/renehernandez/appfile/internal/log"
 	"github.com/renehernandez/appfile/internal/tmpl"
+	"github.com/renehernandez/appfile/internal/version"
 	"github.com/renehernandez/appfile/internal/yaml"
 	"github.com/spf13/cobra"
 )
@@ -36,8 +39,9 @@ func NewRootCmd() *cobra.Command {
 	root := rootCmd{}
 
 	cmd := &cobra.Command{
-		Use:   "appfile",
-		Short: "Deploy app platform specifications to DigitalOcean",
+		Use:     "appfile",
+		Short:   "Deploy app platform specifications to DigitalOcean",
+		Version: version.Version,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			root.initialize()
 		},
@@ -56,6 +60,15 @@ func NewRootCmd() *cobra.Command {
 
 func (root *rootCmd) initialize() {
 	log.Initialize(root.LogLevel())
+
+	if root.AccessToken() == "" {
+		token, ok := os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")
+		if !ok || token == "" {
+			log.Fatalf("No access token option specified and DIGITALOCEAN_ACCESS_TOKEN environment variable is not defined")
+		}
+
+		root.accessToken = token
+	}
 }
 
 func (root *rootCmd) logOptions(cmd *cobra.Command) {

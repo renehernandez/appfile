@@ -1,6 +1,5 @@
 VERSION ?= $(shell git describe --abbrev=0 --tags)
 PKGS := $(shell go list ./... | grep -v "/vendor/\|/examples")
-TAG  = $(shell git describe --tags --abbrev=0 HEAD)
 
 fmt:
 	go fmt ${PKGS}
@@ -15,7 +14,7 @@ test:
 .PHONY: test
 
 build:
-	go build -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${TAG}'
+	go build -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
 .PHONY: build
 
 generate:
@@ -28,8 +27,7 @@ pristine: generate fmt
 .PHONY: pristine
 
 cross:
-	echo "TARGETS: ${TARGETS}"
-	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/roboll/helmfile/pkg/app/version.Version=${TAG}'
+	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/roboll/helmfile/pkg/app/version.Version=${VERSION}'
 .PHONY: cross
 
 release: pristine cross

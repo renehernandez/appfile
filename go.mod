@@ -22,5 +22,5 @@ require (
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9 // indirect
 	golang.org/x/sys v0.0.0-20201118182958-a01c418693c7 // indirect
-	k8s.io/kubectl v0.19.4
+	k8s.io/kubectl v0.19.4 // indirect
 )

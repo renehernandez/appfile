@@ -1,3 +1,5 @@
+// Heavily based on equivalent package in https://github.com/roboll/helmfile/
+
 package maputil
 
 import "testing"

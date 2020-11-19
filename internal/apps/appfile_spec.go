@@ -36,13 +36,21 @@ func (spec *AppfileSpec) hasEnvironment(name string) bool {
 
 func (spec *AppfileSpec) ReadEnvironment(name string) (*env.Environment, error) {
 	if !spec.hasEnvironment(name) {
-		return &env.Environment{}, fmt.Errorf("Environment %s not found in appfile spec at %s", name, spec.Path())
+		if name != "default" {
+			return &env.Environment{}, fmt.Errorf("Environment %s not found in appfile spec at %s", name, spec.Path())
+		}
+
+		log.Debugf("Using default environment without any defined values")
+		return &env.Environment{}, nil
 	}
 
-	fullEnv := &env.Environment{}
+	fullEnv := &env.Environment{
+		Name: name,
+	}
 
 	for _, envPath := range spec.Environments[name] {
 		file := filepath.Join(filepath.Dir(spec.Path()), envPath)
+		log.Debugf("Reading environment values from %s", file)
 		templatedYaml, err := tmpl.RenderFromFile(file)
 		if err != nil {
 			return &env.Environment{}, err
@@ -62,13 +70,13 @@ func (spec *AppfileSpec) ReadEnvironment(name string) (*env.Environment, error) 
 	return fullEnv, nil
 }
 
-func (spec *AppfileSpec) readApps(fullEnv *env.Environment) ([]*godo.App, error) {
+func (spec *AppfileSpec) readApps(state *StateData) ([]*godo.App, error) {
 	apps := []*godo.App{}
 
 	for _, appSpecPath := range spec.AppSpecs {
 		file := filepath.Join(filepath.Dir(spec.Path()), appSpecPath)
 		log.Debugf("Reading app spec from %s", file)
-		templatedYaml, err := tmpl.RenderFromFile(file, fullEnv)
+		templatedYaml, err := tmpl.RenderFromFile(file, state)
 		if err != nil {
 			return []*godo.App{}, err
 		}

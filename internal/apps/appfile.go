@@ -5,15 +5,23 @@ import (
 
 	"github.com/digitalocean/godo"
 	"github.com/pkg/errors"
-	"github.com/renehernandez/appfile/internal/env"
 	"github.com/renehernandez/appfile/internal/log"
 )
+
+type EnvMetadata struct {
+	Name string
+}
+
+type StateData struct {
+	Environment EnvMetadata
+	Values      map[string]interface{}
+}
 
 type Appfile struct {
 	Spec *AppfileSpec
 
-	Environment *env.Environment
-	Apps        []*godo.App
+	State *StateData
+	Apps  []*godo.App
 }
 
 func NewAppfileFromSpec(spec *AppfileSpec, envName string) (*Appfile, error) {
@@ -22,15 +30,22 @@ func NewAppfileFromSpec(spec *AppfileSpec, envName string) (*Appfile, error) {
 		return &Appfile{}, err
 	}
 
-	apps, err := spec.readApps(env)
+	state := StateData{
+		Environment: EnvMetadata{
+			Name: env.Name,
+		},
+		Values: env.Values,
+	}
+
+	apps, err := spec.readApps(&state)
 	if err != nil {
 		return &Appfile{}, err
 	}
 
 	return &Appfile{
-		Spec:        spec,
-		Environment: env,
-		Apps:        apps,
+		Spec:  spec,
+		State: &state,
+		Apps:  apps,
 	}, nil
 }
 
@@ -95,7 +110,6 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 	if err != nil {
 		return []*AppDiff{}, err
 	}
-
 	appDiffs := []*AppDiff{}
 
 	for _, localApp := range appfile.Apps {
@@ -115,6 +129,7 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 }
 
 func (appfile *Appfile) readAppsFromRemote(token string) (map[string]*godo.App, error) {
+	log.Debugln("Get apps running in DigitalOcean")
 	svc := newService(token)
 
 	remoteApps, err := svc.ListApps()

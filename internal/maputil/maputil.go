@@ -1,3 +1,5 @@
+// Copied from https://github.com/roboll/helmfile/
+
 package maputil
 
 import (

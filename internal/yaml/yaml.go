@@ -10,14 +10,11 @@ import (
 	"github.com/renehernandez/appfile/internal/log"
 )
 
-type Spec interface {
-}
-
 // ParseAppfileSpec parses an AppfileSpec object
-func ParseAppfileSpec(yamlData *bytes.Buffer, spec Spec) error {
+func ParseAppfileSpec(yamlData *bytes.Buffer, out interface{}) error {
 	log.Debugf("Unmarshaling appfile spec from yaml")
 
-	err := yaml.Unmarshal(yamlData.Bytes(), spec)
+	err := yaml.Unmarshal(yamlData.Bytes(), out)
 
 	if err != nil {
 		return errors.Wrap(err, "Failed to unmarshal appfile spec from yaml")
@@ -40,17 +37,19 @@ func ParseEnvironment(yamlData *bytes.Buffer) (*env.Environment, error) {
 	return &newEnv, nil
 }
 
-func ParseAppSpec(yamlData *bytes.Buffer, spec Spec) error {
+func ParseAppSpec(yamlData *bytes.Buffer, out interface{}) error {
 	log.Debugf("Unmarshaling app spec from yaml")
 
-	jsonData, err := yaml.YAMLToJSON(yamlData.Bytes())
+	bytes := yamlData.Bytes()
+	jsonData, err := yaml.YAMLToJSON(bytes)
 	if err != nil {
 		return errors.Wrap(err, "Failed to unmarshal app spec from yaml")
 	}
 
-	err = json.Unmarshal(jsonData, spec)
+	err = json.Unmarshal(jsonData, out)
+
 	if err != nil {
-		return errors.Wrap(err, "Failed to unmarshal app spec from yaml")
+		return errors.Wrapf(err, "Failed to unmarshal app spec from yaml. Yaml content:\n%s", string(bytes))
 	}
 
 	return nil

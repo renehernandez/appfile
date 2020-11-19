@@ -1,0 +1,16 @@
+name: sample-production
+
+.common_envs: &common_envs
+  DB_USERNAME: postgres
+  DB_PASSWORD: strong_password
+  RAILS_ENV: production
+
+rails:
+  instance_slug: professional-xs
+  instance_count: 3
+  envs:
+  <<: *common_envs
+
+migrations:
+  envs:
+  <<: *common_envs

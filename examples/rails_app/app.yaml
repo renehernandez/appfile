@@ -1,0 +1,51 @@
+name: {{ .Values.name }}
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: <app-repo>
+    tag: {{ requiredEnv "IMAGE_TAG" }}
+  instance_size_slug: {{ .Values.rails.instance_slug }}
+  instance_count: {{ .Values.rails.instance_count }}
+  envs:
+{{- range $key, $value := .Values.rails.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name "review" }}
+- name: postgres
+  image:
+    registry_type: DOCR
+    repository: postgres
+    tag: '12.4'
+  internal_ports:
+    - 5432
+  envs:
+{{- range $key, $value := .Values.postgres.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+{{- end }}
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: <migration-repo>
+    tag: {{ requiredEnv "IMAGE_TAG" }}
+  envs:
+{{- range $key, $value := .Values.migrations.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name "production" }}
+databases:
+- name: db
+  production: true
+  cluster_name: mydb
+  engine: PG
+  version: "12"
+{{- end }}

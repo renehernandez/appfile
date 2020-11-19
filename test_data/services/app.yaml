@@ -1,0 +1,12 @@
+name: sample-golang
+services:
+- name: public-web
+  github:
+    repo: renehernandez/sample-golang
+    branch: main
+- name: internal-web
+  github:
+    repo: renehernandez/sample-golang
+    branch: main
+  internal_ports:
+  - 3000

@@ -1,3 +1,5 @@
+// Heavily based on equivalent package in https://github.com/roboll/helmfile/
+
 package env
 
 import (
@@ -34,16 +36,10 @@ func (e Environment) deepCopy() (Environment, error) {
 }
 
 func (e *Environment) Merge(other *Environment) (*Environment, error) {
-	if e == nil {
-		if other != nil {
-			copy, err := other.deepCopy()
-			return &copy, err
-		}
-		return nil, nil
-	}
 	copy, err := e.deepCopy()
+
 	if other != nil && err == nil {
-		if err = mergo.Merge(&copy, other, mergo.WithOverride, mergo.WithOverwriteWithEmptyValue); err != nil {
+		if err = mergo.Merge(&copy.Values, other.Values, mergo.WithOverride, mergo.WithOverwriteWithEmptyValue); err != nil {
 			return nil, err
 		}
 	}

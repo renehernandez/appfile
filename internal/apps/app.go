@@ -24,7 +24,7 @@ func (spec *AppSpec) SetDefaultValues() {
 
 	if len(spec.Services) > 0 {
 		for _, svcSpec := range spec.Services {
-			if len(svcSpec.Routes) == 0 {
+			if len(svcSpec.InternalPorts) == 0 && len(svcSpec.Routes) == 0 {
 				svcSpec.Routes = append(svcSpec.Routes, &godo.AppRouteSpec{
 					Path: "/",
 				})

@@ -1,0 +1,5 @@
+spec_name: sample-html-review
+
+deploy_on_push: true
+
+region: "ams"

@@ -1,0 +1,8 @@
+environments:
+  review:
+    - ./environments/review.yaml
+  production:
+    - ./environments/production.yaml
+
+specs:
+  - ./app.yaml

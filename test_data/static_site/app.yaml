@@ -1,0 +1,10 @@
+name: {{ .Values.spec_name }}
+
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: {{ .Values.deploy_on_push }}
+    repo: renehernandez/sample-html
+  name: sample-html
+region: {{ .Values.region }}

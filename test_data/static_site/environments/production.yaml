@@ -1,0 +1,5 @@
+spec_name: sample-html-prod
+
+deploy_on_push: false
+
+region: "fra"

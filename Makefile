@@ -1,4 +1,3 @@
-SHELL := /bin/bash
 VERSION ?= $(shell git describe --abbrev=0 --tags)
 PKGS := $(shell go list ./... | grep -v "/vendor/\|/examples")
 
@@ -32,8 +31,7 @@ tools:
 .PHONY: tools
 
 release:
-	echo "CGO_ENABLED: ${CGO_ENABLED}"
-	gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
+	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
 .PHONY: release
 
 clean:

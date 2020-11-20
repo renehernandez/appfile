@@ -400,11 +400,11 @@ We also added the following functions:
 
 ## Contributing
 
-Check out the [Contributing](CONTRIBUTING.md) page.
+Check out the [Contributing](docs/CONTRIBUTING.md) page.
 
 ## Changelog
 
-For inspecting the changes and tag releases, check the [Changelog](CHANGELOG.md) page
+For inspecting the changes and tag releases, check the [Changelog](docs/CHANGELOG.md) page
 
 ## Appreciation
 

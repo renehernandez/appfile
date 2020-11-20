@@ -43,7 +43,7 @@ func NewRootCmd() *cobra.Command {
 		Short:   "Deploy app platform specifications to DigitalOcean",
 		Version: version.Version,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			root.initialize()
+			root.initialize(cmd)
 		},
 	}
 
@@ -58,8 +58,12 @@ func NewRootCmd() *cobra.Command {
 	return cmd
 }
 
-func (root *rootCmd) initialize() {
+func (root *rootCmd) initialize(cmd *cobra.Command) {
 	log.Initialize(root.LogLevel())
+
+	if cmd.Name() == "help" {
+		return
+	}
 
 	if root.AccessToken() == "" {
 		token, ok := os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")

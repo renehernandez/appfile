@@ -30,7 +30,7 @@ tools:
 	go get -u github.com/mitchellh/gox
 .PHONY: tools
 
-cross: tools
+cross:
 	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}_${VERSION}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
 .PHONY: cross
 

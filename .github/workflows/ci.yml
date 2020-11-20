@@ -6,6 +6,8 @@ on:
       - main
     tags-ignore:
       - v*
+    paths-ignore:
+      - '.github/workflows/release.yml'
   pull_request:
     branches: [main]
 

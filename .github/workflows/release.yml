@@ -13,8 +13,6 @@ jobs:
       - uses: FranzDiebold/github-env-vars-action@v1.2.1
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: main
       - name: Create releases
         run: |
           make tools

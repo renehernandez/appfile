@@ -16,7 +16,9 @@ jobs:
         with:
           ref: main
       - name: Create releases
-        run: make release
+        run: |
+          make tools
+          make release
       - name: Cache release binaries
         uses: actions/cache@v2
         with:

@@ -48,7 +48,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update Changelog for tag ${{ env.GITHUB_REF_NAME }}
-          file_pattern: docs/CHANGELOG.md
+          file_pattern: CHANGELOG.md
 
   release_notes:
     name: Create Release Notes
@@ -65,7 +65,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v1
         with:
           version: ${{ env.GITHUB_REF_NAME }}
-          path: ./docs/CHANGELOG.md
+          path: CHANGELOG.md
 
       - name: Load release binaries
         uses: actions/cache@v2

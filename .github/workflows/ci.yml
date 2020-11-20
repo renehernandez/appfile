@@ -50,4 +50,4 @@ jobs:
       - name: Create releases
         run: |
           make tools
-          make release
+          CGO_ENABLED=0 make release

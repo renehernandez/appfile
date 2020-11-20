@@ -404,7 +404,7 @@ Check out the [Contributing](docs/CONTRIBUTING.md) page.
 
 ## Changelog
 
-For inspecting the changes and tag releases, check the [Changelog](docs/CHANGELOG.md) page
+For inspecting the changes and tag releases, check the [Changelog](CHANGELOG.md) page
 
 ## Appreciation
 

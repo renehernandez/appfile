@@ -30,13 +30,11 @@ tools:
 	go get -u github.com/mitchellh/gox
 .PHONY: tools
 
-cross:
+release:
 	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}_${VERSION}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
-.PHONY: cross
+.PHONY: release
 
 clean:
 	rm dist/appfile_*
 .PHONY: clean
 
-release: pristine cross
-.PHONY: release

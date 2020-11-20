@@ -31,7 +31,7 @@ tools:
 .PHONY: tools
 
 release:
-	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}_${VERSION}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
+	env CGO_ENABLED=0 gox -osarch '!darwin/386' -os '!openbsd !freebsd !netbsd' -arch '!mips !mipsle !mips64 !mips64le !s390x' -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}" -ldflags '-X github.com/renehernandez/appfile/internal/version.Version=${VERSION}'
 .PHONY: release
 
 clean:

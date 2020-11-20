@@ -16,7 +16,6 @@ jobs:
       - name: Create releases
         run: |
           make tools
-          go mod vendor
           make release
       - name: Cache release binaries
         uses: actions/cache@v2

@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 VERSION ?= $(shell git describe --abbrev=0 --tags)
 PKGS := $(shell go list ./... | grep -v "/vendor/\|/examples")
 

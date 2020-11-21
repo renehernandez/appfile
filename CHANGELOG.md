@@ -1,6 +1,10 @@
 # Changelog
 
-## [v0.0.1](https://github.com/renehernandez/appfile/tree/v0.0.1) (2020-11-20)
+## [v0.0.1](https://github.com/renehernandez/appfile/tree/v0.0.1) (2020-11-21)
+
+**Closed issues:**
+
+- Configure CI for release [\#5](https://github.com/renehernandez/appfile/issues/5)
 
 **Merged pull requests:**
 

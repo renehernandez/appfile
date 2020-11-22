@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.0.1](https://github.com/renehernandez/appfile/tree/v0.0.1) (2020-11-21)
+## [v0.0.1](https://github.com/renehernandez/appfile/tree/v0.0.1) (2020-11-22)
 
 **Closed issues:**
 

@@ -1,4 +1,4 @@
-package apps
+package do
 
 import (
 	"context"
@@ -7,38 +7,12 @@ import (
 	"github.com/pkg/errors"
 )
 
-type AppSpec struct {
-	godo.AppSpec
-}
-
-func (spec *AppSpec) SetDefaultValues() {
-	if len(spec.StaticSites) > 0 {
-		for _, siteSpec := range spec.StaticSites {
-			if len(siteSpec.Routes) == 0 {
-				siteSpec.Routes = append(siteSpec.Routes, &godo.AppRouteSpec{
-					Path: "/",
-				})
-			}
-		}
-	}
-
-	if len(spec.Services) > 0 {
-		for _, svcSpec := range spec.Services {
-			if len(svcSpec.InternalPorts) == 0 && len(svcSpec.Routes) == 0 {
-				svcSpec.Routes = append(svcSpec.Routes, &godo.AppRouteSpec{
-					Path: "/",
-				})
-			}
-		}
-	}
-}
-
 type AppService struct {
 	client *godo.Client
 }
 
-func newService(token string) AppService {
-	return AppService{
+func NewAppService(token string) *AppService {
+	return &AppService{
 		client: godo.NewFromToken(token),
 	}
 }

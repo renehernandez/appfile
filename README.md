@@ -4,7 +4,7 @@ Deploy App Specs to DigitalOcean App Platform
 
 ## About
 
-Appfile is a declarative spec for deploying apps to DigitalOcean App Platform. It lets you:
+`appfile` is a declarative spec for deploying apps to the DigitalOcean App Platform. It lets you:
 
 * Keep a directory of app spec values files and maintain changes in version control
 * Apply CI/CD to configuration changes
@@ -17,12 +17,18 @@ Appfile is a declarative spec for deploying apps to DigitalOcean App Platform. I
 * macOS (using [homebrew](https://brew.sh/)): `brew install appfile` (Upcoming)
 * Github action (upcoming)
 
+### Github Action
+
+You can leverage `appfile` with your Github Actions workflows, by using `action-appfile`:
+
+* Marketplace: https://github.com/marketplace/actions/github-action-for-appfile-cli
+* Repository URL: https://github.com/renehernandez/action-appfile
+
 ## Defaults
 
 * The default name for an appfile is `appfile.yaml`
 * The default environment is `default`
 * The access token to DigitalOcean can be specified through the `access-token` flag or the `DIGITALOCEAN_ACCESS_TOKEN` environment variable
-
 
 ## Getting Started
 
@@ -162,7 +168,7 @@ services:
 
 ### A more complex example
 
-Finally let's go over a more complex scenario, using a Rails app as an example. The app spec declares a rails service, a migration job and database. The 2 environments: *review* and *production* will customize the final App spec that gets synced with DigitalOcean. Let's look at the `appfile.yaml`, `app.yaml` and environments definitions below.
+Finally let's go over a more complex scenario, using a Rails app as an example. The app spec declares a rails service, a migration job and a database. The 2 environments: *review* and *production* will customize the final App spec that gets synced with DigitalOcean. Let's look at the `appfile.yaml`, `app.yaml` and environments definitions below.
 
 
 ```yaml
@@ -389,14 +395,13 @@ databases:
 
 You can check out more examples in the examples folder of this repo
 
-## Templating
+## Writing appfile
 
-Appfile uses [go templates](https://godoc.org/text/template) for templating your `appfile.yaml`. While golang ships several built-in functions, we have added all of the functions in the [sprig library](https://godoc.org/github.com/Masterminds/sprig).
+For patterns, resources and tips writing appfile, check the [Writing appfile guide](docs/writing_appfile.md).
 
-We also added the following functions:
+## CLI Reference
 
-* `requiredEnv`: allows you to declare a particular environment variable as required for template rendering. If the value is not set, the template rendering step will fail with an error message.
-* `toYaml`: allows you to get a values block and output the corresponding yaml representation
+See [CLI Reference Documentation](docs/cli_reference.md) for information about each available command.
 
 ## Contributing
 

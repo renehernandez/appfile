@@ -1,0 +1,28 @@
+# Writing appfile
+
+## Templating
+
+Appfile uses [go templates](https://godoc.org/text/template) for templating your `appfile.yaml`. While golang ships several built-in functions, we have added all of the functions in the [sprig library](https://godoc.org/github.com/Masterminds/sprig).
+
+We also added the following functions:
+
+* `requiredEnv`: allows you to declare a particular environment variable as required for template rendering. If the value is not set, the template rendering step will fail with an error message.
+* `toYaml`: allows you to get a values block and output the corresponding yaml representation
+
+## Environment Variables
+
+Environments variables can be used anywhere for templating the appfile.
+
+### Note
+
+If you wish to treat your environment variables as strings always, even if they are boolean or numeric values you can use `{{ env "ENV_NAME" | quote }}` or `"{{ env "ENV_NAME" }}"`. These approaches also work with the `requiredEnv` function.
+
+## Paths Overview
+
+Using spec files in conjunction with cli arguments can be a bit confusing.
+
+A few rules to clear up this ambiguity:
+
+* Absolute paths are always resolved as absolute paths
+* Relative paths referenced in the appfile spec itself are relative to that spec.
+* Relative paths referenced on the command line are relative to the current working directory the user is in

@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.0.2](https://github.com/renehernandez/appfile/tree/v0.0.2) (2020-11-23)
+
+**Implemented enhancements:**
+
+- Delete CNAME record during destroy operation [\#8](https://github.com/renehernandez/appfile/pull/8)
+
+**Documentation:**
+
+- Docs improvements: action-appfile, writing appfile and cli ref [\#9](https://github.com/renehernandez/appfile/pull/9)
+
+**Closed issues:**
+
+- Delete CNAME on app file destroy  [\#7](https://github.com/renehernandez/appfile/issues/7)
+- Add Github Action for appfile [\#3](https://github.com/renehernandez/appfile/issues/3)
+
 ## [v0.0.1](https://github.com/renehernandez/appfile/tree/v0.0.1) (2020-11-22)
 
 **Closed issues:**

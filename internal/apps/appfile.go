@@ -5,6 +5,7 @@ import (
 
 	"github.com/digitalocean/godo"
 	"github.com/pkg/errors"
+	"github.com/renehernandez/appfile/internal/do"
 	"github.com/renehernandez/appfile/internal/log"
 )
 
@@ -55,7 +56,7 @@ func (appfile *Appfile) Sync(token string) error {
 		return err
 	}
 
-	svc := newService(token)
+	svc := do.NewAppService(token)
 
 	for _, localApp := range appfile.Apps {
 		log.Infof("Syncing app %s", localApp.Spec.Name)
@@ -81,7 +82,8 @@ func (appfile *Appfile) Destroy(token string) error {
 		return err
 	}
 
-	svc := newService(token)
+	appSvc := do.NewAppService(token)
+	domainSvc := do.NewDomainService(token)
 	remoteList := []*godo.App{}
 
 	for _, localApp := range appfile.Apps {
@@ -94,12 +96,23 @@ func (appfile *Appfile) Destroy(token string) error {
 	}
 
 	for _, app := range remoteList {
-		log.Infof("Destroying app %s", app.Spec.Name)
-		err := svc.Destroy(app)
+		log.Debugf("Destroying app %s", app.Spec.Name)
+		err := appSvc.Destroy(app)
 		if err != nil {
 			return err
 		}
 		log.Infof("App %s destroyed successfully", app.Spec.Name)
+
+		for _, domain := range app.Spec.Domains {
+			if domain.Domain != "" && domain.Zone != "" {
+				log.Debugf("Deleting %s hostname in %s zone", domain.Domain, domain.Zone)
+				err = domainSvc.DeleteRecord(domain.Domain, domain.Zone)
+				if err != nil {
+					return err
+				}
+				log.Infof("%s hostname deleted successfully from %s zone", domain.Domain, domain.Zone)
+			}
+		}
 	}
 
 	return nil
@@ -130,7 +143,7 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 
 func (appfile *Appfile) readAppsFromRemote(token string) (map[string]*godo.App, error) {
 	log.Debugln("Get apps running in DigitalOcean")
-	svc := newService(token)
+	svc := do.NewAppService(token)
 
 	remoteApps, err := svc.ListApps()
 	if err != nil {

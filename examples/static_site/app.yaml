@@ -7,4 +7,5 @@ services:
     deploy_on_push: {{ .Values.deploy_on_push }}
     repo: renehernandez/sample-html
   name: sample-html-{{ .Environment.Name }}
+
 region: {{ .Values.region }}

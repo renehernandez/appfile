@@ -93,7 +93,7 @@ func (root *rootCmd) appfileFromSpec() *apps.Appfile {
 	log.Debugln("Finished reading appfile spec")
 
 	appfile, err := apps.NewAppfileFromSpec(&spec, root.Environment())
-	errors.CheckAndFailln(err, "Could not create appfile from spec")
+	errors.CheckAndFail(err)
 
 	return appfile
 }

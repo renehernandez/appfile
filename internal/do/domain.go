@@ -19,34 +19,38 @@ func NewDomainService(token string) *DomainService {
 	}
 }
 
-func (svc *DomainService) DeleteRecord(name string, domain string) error {
+func (svc *DomainService) DeleteRecord(domain *godo.AppDomainSpec) error {
 	ctx := context.TODO()
-	record, err := svc.getCNAMERecord(name, domain)
+	record, err := svc.getCNAMERecord(domain)
 	if err != nil {
 		return err
 	}
 	if record.ID > 0 {
 		log.Debugf("Record to delete: %++v", record)
-		_, err = svc.client.Domains.DeleteRecord(ctx, domain, record.ID)
+		_, err = svc.client.Domains.DeleteRecord(ctx, domain.Zone, record.ID)
+
+		if err == nil {
+			log.Infof("%s hostname deleted successfully from %s zone", domain.Domain, domain.Zone)
+		}
 	}
 	return err
 }
 
-func (svc *DomainService) getCNAMERecord(name string, domain string) (*godo.DomainRecord, error) {
+func (svc *DomainService) getCNAMERecord(domain *godo.AppDomainSpec) (*godo.DomainRecord, error) {
 	ctx := context.TODO()
 	opts := &godo.ListOptions{}
 
-	records, _, err := svc.client.Domains.RecordsByTypeAndName(ctx, domain, "CNAME", name, opts)
+	records, _, err := svc.client.Domains.RecordsByTypeAndName(ctx, domain.Zone, "CNAME", domain.Domain, opts)
 
 	if err != nil {
-		return &godo.DomainRecord{}, errors.Wrapf(err, "Failed to retrieve %s record from DigitalOcean", name)
+		return &godo.DomainRecord{}, errors.Wrapf(err, "Failed to retrieve %s record from DigitalOcean", domain.Domain)
 	}
 
 	if len(records) == 0 {
-		log.Warningf("%s CNAME record not found", name)
+		log.Warningf("%s CNAME record not found", domain.Domain)
 		return &godo.DomainRecord{}, nil
 	} else if len(records) > 1 {
-		return &godo.DomainRecord{}, fmt.Errorf("Same %s CNAME record appeared more than once", name)
+		return &godo.DomainRecord{}, fmt.Errorf("Same %s CNAME record appeared more than once", domain.Domain)
 	}
 	return &records[0], nil
 }

@@ -106,11 +106,10 @@ func (appfile *Appfile) Destroy(token string) error {
 		for _, domain := range app.Spec.Domains {
 			if domain.Domain != "" && domain.Zone != "" {
 				log.Debugf("Deleting %s hostname in %s zone", domain.Domain, domain.Zone)
-				err = domainSvc.DeleteRecord(domain.Domain, domain.Zone)
+				err = domainSvc.DeleteRecord(domain)
 				if err != nil {
 					return err
 				}
-				log.Infof("%s hostname deleted successfully from %s zone", domain.Domain, domain.Zone)
 			}
 		}
 	}

@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.0.3](https://github.com/renehernandez/appfile/tree/v0.0.3) (2020-11-27)
+
+**Implemented enhancements:**
+
+- Print hostname when app is deployed [\#10](https://github.com/renehernandez/appfile/issues/10)
+- Default values for scope, instance\_size\_slug, instance\_count and kind fields [\#13](https://github.com/renehernandez/appfile/pull/13)
+- Print hostname per app after sync operation [\#11](https://github.com/renehernandez/appfile/pull/11)
+
+**Fixed bugs:**
+
+- Fix hostname successfully deleted message being shown when domain wasn't found [\#12](https://github.com/renehernandez/appfile/pull/12)
+
 ## [v0.0.2](https://github.com/renehernandez/appfile/tree/v0.0.2) (2020-11-23)
 
 **Implemented enhancements:**

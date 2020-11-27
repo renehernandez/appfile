@@ -65,10 +65,6 @@ func (spec *AppSpec) SetDefaultValues() {
 			workerSpec.InstanceSizeSlug = "basic-xxs"
 		}
 	}
-
-	if spec.Region == "" {
-		spec.Region = "nyc"
-	}
 }
 
 func (spec *AppSpec) setEnvVarsDefaults(envs []*godo.AppVariableDefinition) {

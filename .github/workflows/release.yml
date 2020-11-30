@@ -97,7 +97,7 @@ jobs:
         uses: NSHipster/update-homebrew-formula-action@main
         with:
           repository: renehernandez/appfile
-          tap: rene/homebrew-taps
+          tap: renehernandez/homebrew-taps
           formula: Formula/appfile.rb
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}

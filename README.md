@@ -12,10 +12,19 @@ Deploy App Specs to DigitalOcean App Platform
 
 ## Installation
 
-* download one of [releases](https://github.com/renehernandez/appfile/releases)
-* Windows (using [chocolatey](https://chocolatey.org/)): `choco install appfile` (Upcoming)
-* macOS (using [homebrew](https://brew.sh/)): `brew install appfile` (Upcoming)
-* Github action (upcoming)
+`appfile` can be installed in several ways.
+
+### Homebrew
+
+You can install directly with using the `renehernandez/taps` as follows:
+
+```shell
+$ brew install renehernandez/taps/appfile
+```
+
+### Download releases
+
+You can always download the released binaries directly from the Github Releases page. For the latest releases check [here](https://github.com/renehernandez/appfile/releases)
 
 ### Github Action
 

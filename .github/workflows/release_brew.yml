@@ -28,14 +28,18 @@ jobs:
           brew tap renehernandez/taps
           brew install --build-bottle --verbose appfile
           brew bottle appfile
+      - id: normalize_tag
+        run: |
+          tag="${${{ github.event.release.tag_name }}:1}"
+          echo "::set-output name=tag::$tag"
       - name: Upload the bottle to the GitHub release
         uses: actions/upload-release-asset@v1.0.1
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ github.event.release.tag_name }}.catalina.bottle.tar.gz
-          asset_name: appfile-${{ github.event.release.tag_name }}.catalina.bottle.tar.gz
+          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+          asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_content_type: application/gzip
       - name: Update the Homebrew formula again with bottle
         uses: NSHipster/update-homebrew-formula-action@main
@@ -59,14 +63,18 @@ jobs:
           brew tap renehernandez/taps
           brew install --build-bottle --verbose appfile
           brew bottle appfile
+      - id: normalize_tag
+        run: |
+          tag="${${{github.event.release.tag_name}}:1}"
+          echo "::set-output name=tag::$tag"
       - name: Upload the bottle to the GitHub release
         uses: actions/upload-release-asset@v1.0.1
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ github.event.release.tag_name }}.big_sur.bottle.tar.gz
-          asset_name: appfile-${{ github.event.release.tag_name }}.big_sur.bottle.tar.gz
+          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
+          asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
           asset_content_type: application/gzip
       - name: Update the Homebrew formula again with bottle
         uses: NSHipster/update-homebrew-formula-action@main

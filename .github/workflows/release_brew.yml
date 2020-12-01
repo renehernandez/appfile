@@ -2,7 +2,8 @@ name: Release Brew
 
 on:
   release:
-    types: [created, published]
+    types:
+      - created
 
 jobs:
   formula:

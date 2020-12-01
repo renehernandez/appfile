@@ -7,7 +7,6 @@ on:
 jobs:
   formula:
     name: Update Homebrew formula
-    needs: [release_notes]
     runs-on: ubuntu-latest
     steps:
       - name: Update the Homebrew formula with latest release

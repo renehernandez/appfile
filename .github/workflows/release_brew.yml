@@ -30,10 +30,9 @@ jobs:
           brew bottle appfile
       - id: normalize_tag
         run: |
-          tag="${${{ github.event.release.tag_name }}:1}"
+          tag="${${{ github.event.release.tag_name }}#?}"
           echo "::set-output name=tag::$tag"
-      - name: Upload the bottle to the GitHub release
-        uses: actions/upload-release-asset@v1.0.1
+      - uses: actions/upload-release-asset@v1.0.1
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
         with:
@@ -41,8 +40,7 @@ jobs:
           asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_content_type: application/gzip
-      - name: Update the Homebrew formula again with bottle
-        uses: NSHipster/update-homebrew-formula-action@main
+      - uses: NSHipster/update-homebrew-formula-action@main
         with:
           repository: renehernandez/appfile
           tap: renehernandez/homebrew-taps
@@ -65,10 +63,9 @@ jobs:
           brew bottle appfile
       - id: normalize_tag
         run: |
-          tag="${${{github.event.release.tag_name}}:1}"
+          tag="${${{github.event.release.tag_name}}#?}"
           echo "::set-output name=tag::$tag"
-      - name: Upload the bottle to the GitHub release
-        uses: actions/upload-release-asset@v1.0.1
+      - uses: actions/upload-release-asset@v1.0.1
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
         with:
@@ -76,8 +73,7 @@ jobs:
           asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
           asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
           asset_content_type: application/gzip
-      - name: Update the Homebrew formula again with bottle
-        uses: NSHipster/update-homebrew-formula-action@main
+      - uses: NSHipster/update-homebrew-formula-action@main
         with:
           repository: renehernandez/appfile
           tap: renehernandez/homebrew-taps

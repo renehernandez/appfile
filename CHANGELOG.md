@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.0.4](https://github.com/renehernandez/appfile/tree/v0.0.4) (2020-12-02)
+
+**Implemented enhancements:**
+
+- Add homebrew automated formulae update [\#14](https://github.com/renehernandez/appfile/pull/14)
+
+**Documentation:**
+
+- Update installation section in Readme [\#15](https://github.com/renehernandez/appfile/pull/15)
+
+**Closed issues:**
+
+- Add homebrew formulae [\#1](https://github.com/renehernandez/appfile/issues/1)
+
 ## [v0.0.3](https://github.com/renehernandez/appfile/tree/v0.0.3) (2020-11-27)
 
 **Implemented enhancements:**

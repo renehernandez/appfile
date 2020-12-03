@@ -140,6 +140,46 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 	return appDiffs, nil
 }
 
+func (appfile *Appfile) List(token string) ([]*AppStatus, error) {
+	remoteApps, err := appfile.readAppsFromRemote(token)
+	if err != nil {
+		return []*AppStatus{}, err
+	}
+
+	appsStatus := []*AppStatus{}
+
+	for _, localApp := range appfile.Apps {
+		appStatus := &AppStatus{
+			Name:         localApp.Spec.Name,
+			Status:       DeploymentStatusUnknown,
+			URL:          "-",
+			DeploymentID: "-",
+			UpdatedAt:    "-",
+		}
+
+		remoteApp, ok := remoteApps[localApp.Spec.Name]
+
+		if ok {
+			appStatus.UpdatedAt = remoteApp.UpdatedAt.String()
+			appStatus.URL = remoteApp.LiveDomain
+
+			if remoteApp.InProgressDeployment != nil {
+				appStatus.DeploymentID = remoteApp.InProgressDeployment.ID
+				appStatus.Status = DeploymentStatusInProgress
+			} else {
+				appStatus.DeploymentID = remoteApp.ActiveDeployment.ID
+				appStatus.Status = DeploymentStatusDeployed
+			}
+		} else {
+			log.Debugf("%s app not found in App Platform", localApp.Spec.Name)
+		}
+
+		appsStatus = append(appsStatus, appStatus)
+	}
+
+	return appsStatus, nil
+}
+
 func (appfile *Appfile) readAppsFromRemote(token string) (map[string]*godo.App, error) {
 	log.Debugln("Get apps running in DigitalOcean")
 	svc := do.NewAppService(token)

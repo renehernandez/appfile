@@ -20,14 +20,11 @@ Optionally list components defined in a particular app.
 	listExample = `  # List using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
 appfile list
 
-  # List components for a particular app
-  appfile list <app_name>
-
   # Diff using appfile.yaml in custom location, review environment and access token option
   appfile list --file /path/to/appfile.yaml --environment review --access-token $TOKEN
 
   # List components in app with debug output
-  appfile list <app_name> --log-level debug`
+  appfile list --log-level debug`
 )
 
 func newListCmd(rootCmd *rootCmd) *cobra.Command {

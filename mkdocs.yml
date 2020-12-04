@@ -1,0 +1,23 @@
+site_name: appfile
+repo_name: GitHub
+
+theme:
+  name: readthedocs
+  collapse_navigation: false
+  hljs_languages:
+    - yaml
+    - dockerfile
+
+markdown_extensions:
+  # meta, toc, table and fenced_code extensions are included by default
+  - extra
+  - admonition
+  - smarty
+  - sane_lists
+  - nl2br
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - git-revision-date-localized

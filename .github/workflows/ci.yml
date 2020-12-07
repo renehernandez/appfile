@@ -54,3 +54,32 @@ jobs:
         run: |
           make tools
           make release
+
+  update_docs:
+    name: Build Pre Release Docs
+    runs-on: ubuntu-latest
+    needs: [build_artifacts]
+    steps:
+      - uses: FranzDiebold/github-env-vars-action@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.15'
+      - name: Generate commands docs
+        run: |
+          go run scripts/generate_docs.go
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: python3 -m pip install -r ./requirements.txt
+
+      - name: Build site
+        run: mkdocs build
+
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_dir: ${{ env.CI_REF_NAME }}

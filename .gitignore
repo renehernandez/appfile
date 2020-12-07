@@ -16,4 +16,6 @@ vendor/
 
 *token
 dist
-site/
+docs/cmd/*
+!docs/cmd/.gitkeep
+

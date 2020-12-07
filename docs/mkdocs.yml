@@ -1,5 +1,6 @@
 site_name: appfile
 repo_url: https://github.com/renehernandez/appfile
+site_dir: ../site
 
 theme:
   name: readthedocs

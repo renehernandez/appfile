@@ -1,5 +1,5 @@
 site_name: appfile
-repo_name: GitHub
+repo_url: https://github.com/renehernandez/appfile
 
 theme:
   name: readthedocs

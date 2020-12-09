@@ -77,7 +77,9 @@ jobs:
         run: python3 -m pip install -r ./docs/requirements.txt
 
       - name: Build site
-        run: mkdocs build
+        run: |
+          cp README.md docs/index.md
+          mkdocs build
 
       - uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'main'

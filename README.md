@@ -410,7 +410,7 @@ For patterns, resources and tips writing appfile, check the [Writing appfile gui
 
 ## CLI Reference
 
-See [CLI Reference Documentation](docs/cli_reference.md) for information about each available command.
+See [CLI Reference Documentation](docs/cmd/reference.md) for information about each available command.
 
 ## Contributing
 
@@ -426,4 +426,4 @@ This project is inspired in [helmfile](https://github.com/roboll/helmfile), from
 
 ## License
 
-Checkout the [LICENSE](LICENSE) for details
+Check out the [LICENSE](LICENSE) for details

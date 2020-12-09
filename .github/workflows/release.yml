@@ -80,6 +80,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: ${{ env.CI_REF_NAME }}
+          publish_dir: ./site
 
   release_notes:
     name: Create Release Notes

@@ -55,10 +55,9 @@ jobs:
           make tools
           make release
 
-  update_docs:
+  build_docs:
     name: Build Pre Release Docs
     runs-on: ubuntu-latest
-    needs: [build_artifacts]
     steps:
       - uses: FranzDiebold/github-env-vars-action@v2
       - uses: actions/checkout@v2
@@ -75,12 +74,10 @@ jobs:
           python-version: '3.8'
       - name: Install dependencies
         run: python3 -m pip install -r ./docs/requirements.txt
-
       - name: Build site
         run: |
-          cp README.md docs/index.md
+          ln -s README.md docs/index.md
           mkdocs build
-
       - uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'main'
         with:

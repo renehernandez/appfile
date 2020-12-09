@@ -49,7 +49,7 @@ jobs:
           commit_message: Update Changelog for tag ${{ env.GITHUB_REF_NAME }}
           file_pattern: CHANGELOG.md
 
-  update_docs:
+  deploy_docs:
     name: Build Release Docs
     runs-on: ubuntu-latest
     needs: [changelog]
@@ -71,7 +71,9 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./docs/requirements.txt
       - name: Build site
-        run: mkdocs build
+        run: |
+          ln -s README.md docs/index.md
+          mkdocs build
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>appfile</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "appfile ![CI](https://github.com/renehernandez/appfile/workflows/CI/badge.svg)";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> appfile</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">appfile ![CI](https://github.com/renehernandez/appfile/workflows/CI/badge.svg)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#about">About</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#homebrew">Homebrew</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#download-releases">Download releases</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#github-action">Github Action</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#defaults">Defaults</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#introductory-example">Introductory example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#intermediate-example">Intermediate example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#a-more-complex-example">A more complex example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-appfile">Writing appfile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cli-reference">CLI Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#changelog">Changelog</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#appreciation">Appreciation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="CHANGELOG/">Changelog</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="CHANGELOG/#v004-2020-12-02">v0.0.4 (2020-12-02)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CHANGELOG/#v003-2020-11-27">v0.0.3 (2020-11-27)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CHANGELOG/#v002-2020-11-23">v0.0.2 (2020-11-23)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CHANGELOG/#v001-2020-11-22">v0.0.1 (2020-11-22)</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING/">Contributing to Appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING/#using-the-issue-tracker">Using the issue tracker</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING/#bug-reports">Bug reports</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING/#feature-requests">Feature requests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING/#pull-requests">Pull requests</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="writing_appfile/">Writing appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="writing_appfile/#templating">Templating</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="writing_appfile/#environment-variables">Environment Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="writing_appfile/#note">Note</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="writing_appfile/#paths-overview">Paths Overview</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Cmd</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/appfile/">Appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="cmd/appfile/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/appfile_destroy/">Appfile destroy</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_destroy/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_destroy/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_destroy/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_destroy/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_destroy/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="cmd/appfile_destroy/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/appfile_diff/">Appfile diff</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_diff/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_diff/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_diff/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_diff/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_diff/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="cmd/appfile_diff/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/appfile_list/">Appfile list</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_list/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_list/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_list/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_list/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_list/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="cmd/appfile_list/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/appfile_sync/">Appfile sync</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_sync/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_sync/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_sync/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_sync/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/appfile_sync/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="cmd/appfile_sync/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cmd/reference/">CLI Reference for appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="cmd/reference/#command-list">Command List</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">appfile</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>appfile ![CI](https://github.com/renehernandez/appfile/workflows/CI/badge.svg)</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/renehernandez/appfile/edit/master/docs/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="appfile">appfile <img alt="CI" src="https://github.com/renehernandez/appfile/workflows/CI/badge.svg" /><a class="headerlink" href="#appfile" title="Permanent link">&para;</a></h1>
+<p>Deploy App Specs to DigitalOcean App Platform</p>
+<h2 id="about">About<a class="headerlink" href="#about" title="Permanent link">&para;</a></h2>
+<p><code>appfile</code> is a declarative spec for deploying apps to the DigitalOcean App Platform. It lets you:</p>
+<ul>
+<li>Keep a directory of app spec values files and maintain changes in version control</li>
+<li>Apply CI/CD to configuration changes</li>
+<li>Visualize a diff of the changes to be applied</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p><code>appfile</code> can be installed in several ways.</p>
+<h3 id="homebrew">Homebrew<a class="headerlink" href="#homebrew" title="Permanent link">&para;</a></h3>
+<p>You can install directly with using the <code>renehernandez/taps</code> as follows:</p>
+<pre><code class="language-shell">$ brew install renehernandez/taps/appfile
+</code></pre>
+<h3 id="download-releases">Download releases<a class="headerlink" href="#download-releases" title="Permanent link">&para;</a></h3>
+<p>You can always download the released binaries directly from the Github Releases page. For the latest releases check <a href="https://github.com/renehernandez/appfile/releases">here</a></p>
+<h3 id="github-action">Github Action<a class="headerlink" href="#github-action" title="Permanent link">&para;</a></h3>
+<p>You can leverage <code>appfile</code> with your Github Actions workflows, by using <code>action-appfile</code>:</p>
+<ul>
+<li>Marketplace: https://github.com/marketplace/actions/github-action-for-appfile-cli</li>
+<li>Repository URL: https://github.com/renehernandez/action-appfile</li>
+</ul>
+<h2 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The default name for an appfile is <code>appfile.yaml</code></li>
+<li>The default environment is <code>default</code></li>
+<li>The access token to DigitalOcean can be specified through the <code>access-token</code> flag or the <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</li>
+</ul>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Let&rsquo;s look at several app examples and see how <code>appfile</code> can help you to manage your App specification and deployments.</p>
+<h3 id="introductory-example">Introductory example<a class="headerlink" href="#introductory-example" title="Permanent link">&para;</a></h3>
+<p>This example will deploy a static site without any custom values nor environment values.</p>
+<pre><code class="language-yaml"># appfile.yaml
+specs:
+- ./app.yaml
+</code></pre>
+<pre><code class="language-yaml"># app.yaml
+name: sample-html
+
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: renehernandez/sample-html
+  name: sample-html
+</code></pre>
+<p>Sync your App specification to DigitalOcean App Platform by running:</p>
+<p>Using access token flag:</p>
+<pre><code class="language-console">appfile sync --file /path/to/appfile.yaml --access-token &lt;token&gt;
+</code></pre>
+<p>Using <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</p>
+<pre><code class="language-console">appfile sync --file /path/to/appfile.yaml
+</code></pre>
+<p>For the example above, you don&rsquo;t need <code>appfile</code>, you can use instead the <a href="https://github.com/digitalocean/doctl">doctl cli</a> to deploy your app. Let&rsquo;s look at a more interesting example next with a fictitious Django app, which will show the flexibility of environments.</p>
+<h3 id="intermediate-example">Intermediate example<a class="headerlink" href="#intermediate-example" title="Permanent link">&para;</a></h3>
+<p>This next example deploys an App containing a service definition. The 2 environments: <em>review</em> and <em>production</em> will customize the final specification of the app to be deployed. Let&rsquo;s look at the <code>appfile.yaml</code>, <code>app.yaml</code> and environments definitions below.</p>
+<pre><code class="language-yaml"># appfile.yaml
+environments:
+  review:
+  - ./envs/review.yaml
+  production:
+  - ./envs/production.yaml
+
+specs:
+- ./app.yaml
+</code></pre>
+<pre><code class="language-yaml"># app.yaml
+name: {{ .Values.name }}
+
+services:
+- name: web
+  github:
+    repo: &lt;repo-url&gt;
+    branch: main
+    deploy_on_push: {{ .Values.deploy_on_push }}
+  envs:
+  - key: WEBSITE_NAME
+    value: {{ requiredEnv &quot;WEBSITE_NAME&quot; }}
+</code></pre>
+<pre><code class="language-yaml"># review.yaml
+name: sample-review
+
+deploy_on_push: true
+</code></pre>
+<pre><code class="language-yaml"># production.yaml
+name: sample-production
+
+deploy_on_push: false
+</code></pre>
+<p>You can deploy your App in review by running:</p>
+<pre><code class="language-console">WEBSITE_NAME='Appfile Review' appfile sync --file /path/to/appfile.yaml --environment review
+</code></pre>
+<p>The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-review
+
+services:
+- name: web
+  github:
+    repo: &lt;repo-url&gt;
+    branch: main
+    deploy_on_push: true
+  routes:
+  - path: /
+  envs:
+  - key: WEBSITE_NAME
+    value: Appfile Review
+</code></pre>
+<p>Or you can deploy your App in production:</p>
+<pre><code class="language-console">WEBSITE_NAME='Appfile Prod' appfile sync --file /path/to/appfile.yaml --environment production
+</code></pre>
+<p>The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-production
+
+services:
+- name: web
+  github:
+    repo: &lt;repo-url&gt;
+    branch: main
+    deploy_on_push: false
+  routes:
+  - path: /
+  envs:
+  - key: WEBSITE_NAME
+    value: Appfile Prod
+</code></pre>
+<h3 id="a-more-complex-example">A more complex example<a class="headerlink" href="#a-more-complex-example" title="Permanent link">&para;</a></h3>
+<p>Finally let&rsquo;s go over a more complex scenario, using a Rails app as an example. The app spec declares a rails service, a migration job and a database. The 2 environments: <em>review</em> and <em>production</em> will customize the final App spec that gets synced with DigitalOcean. Let&rsquo;s look at the <code>appfile.yaml</code>, <code>app.yaml</code> and environments definitions below.</p>
+<pre><code class="language-yaml"># appfile.yaml
+environments:
+  review:
+  - ./envs/review.yaml
+  production:
+  - ./envs/production.yaml
+
+specs:
+- ./app.yaml
+</code></pre>
+<pre><code class="language-yaml">name: {{ .Values.name }}
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;repo_name&gt;
+    tag: {{ requiredEnv &quot;IMAGE_TAG&quot; }}
+  instance_size_slug: {{ .Values.rails.instance_slug }}
+  instance_count: {{ .Values.rails.instance_count }}
+  envs:
+{{- range $key, $value := .Values.rails.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name &quot;review&quot; }}
+- name: postgres
+  image:
+    registry_type: DOCR
+    repository: postgres
+    tag: '12.4'
+  internal_ports:
+    - 5432
+  envs:
+{{- range $key, $value := .Values.postgres.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+{{- end }}
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;repo_name&gt;
+    tag: {{ requiredEnv &quot;IMAGE_TAG&quot; }}****
+  envs:
+{{- range $key, $value := .Values.migrations.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name &quot;production&quot; }}
+databases:
+- name: db
+  production: true
+  cluster_name: mydatabase
+  engine: PG
+  version: &quot;12&quot;
+{{- end }}
+</code></pre>
+<pre><code class="language-yaml"># review.yaml
+name: sample-{{ requiredEnv &quot;REVIEW_HOSTNAME&quot; }}
+
+.common_envs: &amp;common_envs
+  DB_USERNAME: postgres
+  DB_PASSWORD: password
+  RAILS_ENV: production
+
+rails:
+  instance_slug: basic-xxs
+  instance_count: 1
+  envs:
+  &lt;&lt;: *common_envs
+
+postgres:
+  envs:
+    POSTGRES_USER: postgres
+    POSTGRES_DB: mydatabase
+    POSTGRES_PASSWORD: password
+
+migrations:
+  envs:
+  &lt;&lt;: *common_envs
+</code></pre>
+<pre><code class="language-yaml"># production.yaml
+name: sample-production
+
+.common_envs: &amp;common_envs
+  DB_USERNAME: postgres
+  DB_PASSWORD: strong_password
+  RAILS_ENV: production
+
+rails:
+  instance_slug: professional-xs
+  instance_count: 3
+  envs:
+  &lt;&lt;: *common_envs
+
+migrations:
+  envs:
+  &lt;&lt;: *common_envs
+</code></pre>
+<p>You can deploy your App in review by running:</p>
+<pre><code class="language-console">IMAGE_TAG='fad7869fdaldabh23' REVIEW_HOSTNAME='fix-bug' appfile sync --file /path/to/appfile.yaml --environment review
+</code></pre>
+<p>This would deploy a public rails service, and internal postgres service (the database running on a container) and would run the migration job. The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-fix-bug
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;app-repo&gt;
+    tag: fad7869fdaldabh23
+  instance_size_slug: basic-xxs
+  instance_count: 1
+  routes:
+  - path: /
+  envs:
+  - key: DB_PASSWORD
+    value: password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+- name: postgres
+  image:
+    registry_type: DOCR
+    repository: postgres
+    tag: '12.4'
+  internal_ports:
+    - 5432
+  envs:
+  - key: POSTGRES_DB
+    value: mydatabase
+  - key: POSTGRES_PASSWORD
+    value: password
+  - key: POSTGRES_USER
+    value: postgres
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;migration-repo&gt;
+    tag: fad7869fdaldabh23
+  envs:
+  - key: DB_PASSWORD
+    value: password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+</code></pre>
+<p>Or you can deploy your App in production instead:</p>
+<pre><code class="language-console">IMAGE_TAG='fad7869fdaldabh23' appfile sync --file /path/to/appfile.yaml --environment production
+</code></pre>
+<p>This would deploy a public rails service and a migration job. Both components would connect to an existing database. The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-production
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;app-repo&gt;
+    tag: fad7869fdaldabh23
+  instance_size_slug: professional-xs
+  instance_count: 3
+  routes:
+  - path: /
+  envs:
+  - key: DB_PASSWORD
+    value: strong_password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;migration-repo&gt;
+    tag: fad7869fdaldabh23
+  envs:
+  - key: DB_PASSWORD
+    value: strong_password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+databases:
+- name: db
+  production: true
+  cluster_name: mydb
+  engine: PG
+  version: &quot;12&quot;
+</code></pre>
+<p>You can check out more examples in the examples folder of this repo</p>
+<h2 id="writing-appfile">Writing appfile<a class="headerlink" href="#writing-appfile" title="Permanent link">&para;</a></h2>
+<p>For patterns, resources and tips writing appfile, check the <a href="writing_appfile/">Writing appfile guide</a>.</p>
+<h2 id="cli-reference">CLI Reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h2>
+<p>See <a href="cmd/reference/">CLI Reference Documentation</a> for information about each available command.</p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>Check out the <a href="CONTRIBUTING/">Contributing</a> page.</p>
+<h2 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h2>
+<p>For inspecting the changes and tag releases, check the <a href="CHANGELOG/">Changelog</a> page</p>
+<h2 id="appreciation">Appreciation<a class="headerlink" href="#appreciation" title="Permanent link">&para;</a></h2>
+<p>This project is inspired in <a href="https://github.com/roboll/helmfile">helmfile</a>, from which I have borrowed heavily for the first iteration</p>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
+<p>Check out the <a href="LICENSE">LICENSE</a> for details</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="CHANGELOG/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/renehernandez/appfile/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+        <span style="margin-left: 15px"><a href="CHANGELOG/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2020-12-09 15:35:37.810406+00:00
+-->

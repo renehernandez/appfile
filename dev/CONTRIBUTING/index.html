@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Contributing to Appfile - appfile</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Contributing to Appfile";
+    var mkdocs_page_input_path = "CONTRIBUTING.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> appfile</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">appfile ![CI](https://github.com/renehernandez/appfile/workflows/CI/badge.svg)</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="..#about">About</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="..#homebrew">Homebrew</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#download-releases">Download releases</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#github-action">Github Action</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#defaults">Defaults</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="..#introductory-example">Introductory example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#intermediate-example">Intermediate example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#a-more-complex-example">A more complex example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#writing-appfile">Writing appfile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#cli-reference">CLI Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#contributing">Contributing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#changelog">Changelog</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#appreciation">Appreciation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#license">License</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Changelog</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v004-2020-12-02">v0.0.4 (2020-12-02)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v003-2020-11-27">v0.0.3 (2020-11-27)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v002-2020-11-23">v0.0.2 (2020-11-23)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v001-2020-11-22">v0.0.1 (2020-11-22)</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Contributing to Appfile</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#using-the-issue-tracker">Using the issue tracker</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bug-reports">Bug reports</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#feature-requests">Feature requests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull requests</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../writing_appfile/">Writing appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../writing_appfile/#templating">Templating</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../writing_appfile/#environment-variables">Environment Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../writing_appfile/#note">Note</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../writing_appfile/#paths-overview">Paths Overview</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Cmd</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile/">Appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_destroy/">Appfile destroy</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_destroy/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_diff/">Appfile diff</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_diff/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_list/">Appfile list</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_list/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_sync/">Appfile sync</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_sync/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/reference/">CLI Reference for appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/reference/#command-list">Command List</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">appfile</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Contributing to Appfile</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/renehernandez/appfile/edit/master/docs/CONTRIBUTING.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="contributing-to-appfile">Contributing to Appfile<a class="headerlink" href="#contributing-to-appfile" title="Permanent link">&para;</a></h1>
+<p>Please take a moment to review this document in order to make the contribution<br />
+process easy and effective for everyone involved!</p>
+<h2 id="using-the-issue-tracker">Using the issue tracker<a class="headerlink" href="#using-the-issue-tracker" title="Permanent link">&para;</a></h2>
+<p>You can use the issues tracker for:</p>
+<ul>
+<li><a href="#contributing-to-appfile">Contributing to Appfile</a></li>
+<li><a href="#using-the-issue-tracker">Using the issue tracker</a></li>
+<li><a href="#bug-reports">Bug reports</a></li>
+<li><a href="#feature-requests">Feature requests</a></li>
+<li><a href="#pull-requests">Pull requests</a></li>
+</ul>
+<p>Use <a href="http://stackoverflow.com/">Stackoverflow</a> for questions and personal support requests.</p>
+<h2 id="bug-reports">Bug reports<a class="headerlink" href="#bug-reports" title="Permanent link">&para;</a></h2>
+<p>A bug is a <em>demonstrable problem</em> that is caused by the code in the repository.<br />
+Good bug reports are extremely helpful - thank you!</p>
+<p>Guidelines for bug reports:</p>
+<ol>
+<li>
+<p><strong>Use the GitHub issue search</strong> &mdash; check if the issue has already been<br />
+   reported.</p>
+</li>
+<li>
+<p><strong>Check if the issue has been fixed</strong> &mdash; try to reproduce it using the<br />
+<code>main</code> branch in the repository.</p>
+</li>
+<li>
+<p><strong>Isolate and report the problem</strong> &mdash; ideally create a reduced test<br />
+   case.</p>
+</li>
+</ol>
+<p>Please try to be as detailed as possible in your report. Include information about<br />
+your Appfile binary. Please provide steps to reproduce the issue as well as the outcome you were expecting! All these details will help developers to fix any potential bugs.</p>
+<p>Example:</p>
+<blockquote>
+<p>Short and descriptive example bug report title</p>
+<p>A summary of the issue and the environment in which it occurs. If suitable,<br />
+include the steps required to reproduce the bug.</p>
+<ol>
+<li>This is the first step</li>
+<li>This is the second step</li>
+<li>Further steps, etc.</li>
+</ol>
+<p>Any other information you want to share that is relevant to the issue being<br />
+reported. This might include the lines of code that you have identified as<br />
+causing the bug, and potential solutions (and your opinions on their<br />
+merits).</p>
+</blockquote>
+<h2 id="feature-requests">Feature requests<a class="headerlink" href="#feature-requests" title="Permanent link">&para;</a></h2>
+<p>Feature requests are welcome. But take a moment to find out whether your idea<br />
+fits with the scope and aims of the project. It&rsquo;s up to <em>you</em> to make a strong<br />
+case to convince the community of the merits of this feature.<br />
+Please provide as much detail and context as possible.</p>
+<h2 id="pull-requests">Pull requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h2>
+<p>Good pull requests - patches, improvements, new features - are a fantastic<br />
+help. They should remain focused in scope and avoid containing unrelated<br />
+commits.</p>
+<p><strong>IMPORTANT</strong>: By submitting a patch, you agree that your work will be<br />
+licensed under the license used by the project.</p>
+<p>If you have any large pull request in mind (e.g. implementing features,<br />
+refactoring code, etc), <strong>please ask first</strong> otherwise you risk spending<br />
+a lot of time working on something that the project&rsquo;s developers might<br />
+not want to merge into the project.</p>
+<p>Please adhere to the coding conventions in the project (indentation,<br />
+accurate comments, etc.) and don&rsquo;t forget to add your own tests and<br />
+documentation. When working with git, we recommend the following process<br />
+in order to craft an excellent pull request:</p>
+<ol>
+<li><a href="https://help.github.com/articles/fork-a-repo/">Fork</a> the project, clone your fork,<br />
+   and configure the remotes:</li>
+</ol>
+<p><code>sh
+   # Clone your fork of the repo into the current directory
+   git clone https://github.com/&lt;your-username&gt;/appfile
+   # Navigate to the newly cloned directory
+   cd appfile
+   # Assign the original repo to a remote called "upstream"
+   git remote add upstream https://github.com/renehernandez/appfile</code></p>
+<ol start="2">
+<li>If you cloned a while ago, get the latest changes from upstream:</li>
+</ol>
+<p><code>bash
+   git checkout main
+   git pull upstream main</code></p>
+<ol start="3">
+<li>Create a new topic branch (off of <code>main</code>) to contain your feature, change,<br />
+   or fix.</li>
+</ol>
+<p><strong>IMPORTANT</strong>: Making changes in <code>main</code> is discouraged. You should always<br />
+   keep your local <code>main</code> in sync with upstream <code>main</code> and make your<br />
+   changes in topic branches.</p>
+<p><code>sh
+   git checkout -b &lt;topic-branch-name&gt;</code></p>
+<ol start="4">
+<li>
+<p>Commit your changes in logical chunks. Keep your commit messages organized,<br />
+   with a short description in the first line and more detailed information on<br />
+   the following lines. Feel free to use Git&rsquo;s<br />
+<a href="https://help.github.com/articles/about-git-rebase/">interactive rebase</a><br />
+   feature to tidy up your commits before making them public.</p>
+</li>
+<li>
+<p>Make sure all the tests are still passing.</p>
+</li>
+</ol>
+<p><code>sh
+   rake</code></p>
+<ol start="6">
+<li>Push your topic branch up to your fork:</li>
+</ol>
+<p><code>sh
+   git push origin &lt;topic-branch-name&gt;</code></p>
+<ol start="7">
+<li>
+<p><a href="https://help.github.com/articles/using-pull-requests/">Open a Pull Request</a><br />
+    with a clear title and description.</p>
+</li>
+<li>
+<p>If you haven&rsquo;t updated your pull request for a while, you should consider<br />
+   rebasing on main and resolving any conflicts.</p>
+</li>
+</ol>
+<p><strong>IMPORTANT</strong>: <em>Never ever</em> merge upstream <code>main</code> into your branches. You<br />
+   should always <code>git rebase</code> on <code>main</code> to bring your changes up to date when<br />
+   necessary.</p>
+<p><code>sh
+   git checkout main
+   git pull upstream main
+   git checkout &lt;your-topic-branch&gt;
+   git rebase main</code></p>
+<p>Thank you for your contributions!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../writing_appfile/" class="btn btn-neutral float-right" title="Writing appfile">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../CHANGELOG/" class="btn btn-neutral" title="Changelog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/renehernandez/appfile/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../CHANGELOG/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../writing_appfile/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Writing appfile - appfile</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Writing appfile";
+    var mkdocs_page_input_path = "writing_appfile.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> appfile</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">appfile ![CI](https://github.com/renehernandez/appfile/workflows/CI/badge.svg)</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="..#about">About</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="..#homebrew">Homebrew</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#download-releases">Download releases</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#github-action">Github Action</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#defaults">Defaults</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="..#introductory-example">Introductory example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#intermediate-example">Intermediate example</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="..#a-more-complex-example">A more complex example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#writing-appfile">Writing appfile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#cli-reference">CLI Reference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#contributing">Contributing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#changelog">Changelog</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#appreciation">Appreciation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="..#license">License</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CHANGELOG/">Changelog</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v004-2020-12-02">v0.0.4 (2020-12-02)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v003-2020-11-27">v0.0.3 (2020-11-27)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v002-2020-11-23">v0.0.2 (2020-11-23)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CHANGELOG/#v001-2020-11-22">v0.0.1 (2020-11-22)</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING/">Contributing to Appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING/#using-the-issue-tracker">Using the issue tracker</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING/#bug-reports">Bug reports</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING/#feature-requests">Feature requests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../CONTRIBUTING/#pull-requests">Pull requests</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Writing appfile</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#templating">Templating</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment Variables</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#note">Note</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paths-overview">Paths Overview</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Cmd</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile/">Appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_destroy/">Appfile destroy</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_destroy/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_destroy/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_diff/">Appfile diff</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_diff/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_diff/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_list/">Appfile list</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_list/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_list/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/appfile_sync/">Appfile sync</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#synopsis">Synopsis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#examples">Examples</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#options">Options</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#options-inherited-from-parent-commands">Options inherited from parent commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/appfile_sync/#see-also">SEE ALSO</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="../cmd/appfile_sync/#auto-generated-by-spf13cobra-on-9-dec-2020">Auto generated by spf13/cobra on 9-Dec-2020</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cmd/reference/">CLI Reference for appfile</a>
+    <ul>
+    <li class="toctree-l2"><a class="reference internal" href="../cmd/reference/#command-list">Command List</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">appfile</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Writing appfile</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/renehernandez/appfile/edit/master/docs/writing_appfile.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="writing-appfile">Writing appfile<a class="headerlink" href="#writing-appfile" title="Permanent link">&para;</a></h1>
+<h2 id="templating">Templating<a class="headerlink" href="#templating" title="Permanent link">&para;</a></h2>
+<p>Appfile uses <a href="https://godoc.org/text/template">go templates</a> for templating your <code>appfile.yaml</code>. While golang ships several built-in functions, we have added all of the functions in the <a href="https://godoc.org/github.com/Masterminds/sprig">sprig library</a>.</p>
+<p>We also added the following functions:</p>
+<ul>
+<li><code>requiredEnv</code>: allows you to declare a particular environment variable as required for template rendering. If the value is not set, the template rendering step will fail with an error message.</li>
+<li><code>toYaml</code>: allows you to get a values block and output the corresponding yaml representation</li>
+</ul>
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<p>Environments variables can be used anywhere for templating the appfile.</p>
+<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
+<p>If you wish to treat your environment variables as strings always, even if they are boolean or numeric values you can use <code>{{ env "ENV_NAME" | quote }}</code> or <code>"{{ env "ENV_NAME" }}"</code>. These approaches also work with the <code>requiredEnv</code> function.</p>
+<h2 id="paths-overview">Paths Overview<a class="headerlink" href="#paths-overview" title="Permanent link">&para;</a></h2>
+<p>Using spec files in conjunction with cli arguments can be a bit confusing.</p>
+<p>A few rules to clear up this ambiguity:</p>
+<ul>
+<li>Absolute paths are always resolved as absolute paths</li>
+<li>Relative paths referenced in the appfile spec itself are relative to that spec.</li>
+<li>Relative paths referenced on the command line are relative to the current working directory the user is in</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../cmd/appfile/" class="btn btn-neutral float-right" title="Appfile">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../CONTRIBUTING/" class="btn btn-neutral" title="Contributing to Appfile"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/renehernandez/appfile/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../CONTRIBUTING/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../cmd/appfile/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

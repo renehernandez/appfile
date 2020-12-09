@@ -81,7 +81,8 @@ jobs:
           python docs/scripts/link_fixer.py
           mkdocs build
       - uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'main'
+        if: env.CI_REF_NAME == 'main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: dev
+          publish_dir: ./site

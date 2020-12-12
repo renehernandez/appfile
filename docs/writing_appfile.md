@@ -1,5 +1,11 @@
 # Writing appfile
 
+## Defaults
+
+* The default name for an appfile is `appfile.yaml`
+* The default environment is `default`
+* The access token to DigitalOcean can be specified through the `access-token` option or the `DIGITALOCEAN_ACCESS_TOKEN` environment variable
+
 ## Templating
 
 Appfile uses [go templates](https://godoc.org/text/template) for templating your `appfile.yaml`. While golang ships several built-in functions, we have added all of the functions in the [sprig library](https://godoc.org/github.com/Masterminds/sprig).
@@ -19,7 +25,7 @@ If you wish to treat your environment variables as strings always, even if they 
 
 ## Paths Overview
 
-Using spec files in conjunction with cli arguments can be a bit confusing.
+Using spec files in conjunction with CLI arguments can be a bit confusing.
 
 A few rules to clear up this ambiguity:
 

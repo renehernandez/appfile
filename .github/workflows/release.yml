@@ -62,9 +62,6 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: '1.15'
-      - name: Generate commands docs
-        run: |
-          go run scripts/generate_docs.go
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
@@ -72,9 +69,8 @@ jobs:
         run: python3 -m pip install -r ./docs/scripts/requirements.txt
       - name: Build site
         run: |
-          cp README.md docs/index.md
-          cp CHANGELOG.md docs/CHANGELOG.md
-          python docs/scripts/link_fixer.py
+          go run ./docs/scripts/generate_docs.go
+          python docs/scripts/fixer.py
           mkdocs build
       - uses: peaceiris/actions-gh-pages@v3
         with:

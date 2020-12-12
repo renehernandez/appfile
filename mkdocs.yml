@@ -15,7 +15,7 @@ nav:
   - About:
     - Changelog: CHANGELOG.md
     - License: LICENSE.md
-    - Contributing: Contributing.md
+    - Contributing: CONTRIBUTING.md
 
 theme:
   name: material

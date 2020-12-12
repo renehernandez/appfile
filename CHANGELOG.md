@@ -1,5 +1,25 @@
 # Changelog
 
+## [v0.0.5](https://github.com/renehernandez/appfile/tree/v0.0.5) (2020-12-12)
+
+**Implemented enhancements:**
+
+- Add list command [\#17](https://github.com/renehernandez/appfile/issues/17)
+- Add list command [\#20](https://github.com/renehernandez/appfile/pull/20)
+
+**Fixed bugs:**
+
+- Add publish dir and fix deployments for main branch [\#23](https://github.com/renehernandez/appfile/pull/23)
+
+**Documentation:**
+
+- Docs refactoring [\#25](https://github.com/renehernandez/appfile/pull/25)
+- Add Github Pages automatic deployment and commands help pages [\#22](https://github.com/renehernandez/appfile/pull/22)
+
+**Closed issues:**
+
+- Publish documentation [\#4](https://github.com/renehernandez/appfile/issues/4)
+
 ## [v0.0.4](https://github.com/renehernandez/appfile/tree/v0.0.4) (2020-12-02)
 
 **Implemented enhancements:**

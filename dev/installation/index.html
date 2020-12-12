@@ -16,7 +16,7 @@
     
     
       
-        <title>Writing appfile - appfile</title>
+        <title>Installation - appfile</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#writing-appfile" class="md-skip">
+        <a href="#installation" class="md-skip">
           Skip to content
         </a>
       
@@ -89,7 +89,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Writing appfile
+              Installation
             
           </span>
         </div>
@@ -173,7 +173,7 @@
       
         
       
-      <a href="../installation/" class="md-tabs__link md-tabs__link--active">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
         Getting Started
       </a>
     </li>
@@ -271,11 +271,63 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../installation/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Installation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Installation
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#homebrew" class="md-nav__link">
+    Homebrew
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-releases" class="md-nav__link">
+    Download releases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-action" class="md-nav__link">
+    Github Action
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -295,83 +347,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Writing appfile
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../writing_appfile/" class="md-nav__link">
       Writing appfile
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#defaults" class="md-nav__link">
-    Defaults
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#templating" class="md-nav__link">
-    Templating
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    Environment Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="Environment Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#paths-overview" class="md-nav__link">
-    Paths Overview
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -477,42 +457,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#defaults" class="md-nav__link">
-    Defaults
+  <a href="#homebrew" class="md-nav__link">
+    Homebrew
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#templating" class="md-nav__link">
-    Templating
+  <a href="#download-releases" class="md-nav__link">
+    Download releases
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    Environment Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="Environment Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#paths-overview" class="md-nav__link">
-    Paths Overview
+  <a href="#github-action" class="md-nav__link">
+    Github Action
   </a>
   
 </li>
@@ -530,31 +490,19 @@
               
                 
                 
-                <h1 id="writing-appfile">Writing appfile<a class="headerlink" href="#writing-appfile" title="Permanent link">&para;</a></h1>
-<h2 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h2>
+                <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<p><code>appfile</code> can be installed in several ways.</p>
+<h2 id="homebrew">Homebrew<a class="headerlink" href="#homebrew" title="Permanent link">&para;</a></h2>
+<p>You can install directly with using the <code>renehernandez/taps</code> as follows:</p>
+<pre><code class="language-shell">$ brew install renehernandez/taps/appfile
+</code></pre>
+<h2 id="download-releases">Download releases<a class="headerlink" href="#download-releases" title="Permanent link">&para;</a></h2>
+<p>You can always download the released binaries directly from the Github Releases page, which includes binaries for Windows, Mac, Linux and ARM. For the latest releases check <a href="https://github.com/renehernandez/appfile/releases">here</a></p>
+<h2 id="github-action">Github Action<a class="headerlink" href="#github-action" title="Permanent link">&para;</a></h2>
+<p>You can leverage <code>appfile</code> with your Github Actions workflows, by using <code>action-appfile</code>:</p>
 <ul>
-<li>The default name for an appfile is <code>appfile.yaml</code></li>
-<li>The default environment is <code>default</code></li>
-<li>The access token to DigitalOcean can be specified through the <code>access-token</code> option or the <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</li>
-</ul>
-<h2 id="templating">Templating<a class="headerlink" href="#templating" title="Permanent link">&para;</a></h2>
-<p>Appfile uses <a href="https://godoc.org/text/template">go templates</a> for templating your <code>appfile.yaml</code>. While golang ships several built-in functions, we have added all of the functions in the <a href="https://godoc.org/github.com/Masterminds/sprig">sprig library</a>.</p>
-<p>We also added the following functions:</p>
-<ul>
-<li><code>requiredEnv</code>: allows you to declare a particular environment variable as required for template rendering. If the value is not set, the template rendering step will fail with an error message.</li>
-<li><code>toYaml</code>: allows you to get a values block and output the corresponding yaml representation</li>
-</ul>
-<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
-<p>Environments variables can be used anywhere for templating the appfile.</p>
-<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
-<p>If you wish to treat your environment variables as strings always, even if they are boolean or numeric values you can use <code>{{ env "ENV_NAME" | quote }}</code> or <code>"{{ env "ENV_NAME" }}"</code>. These approaches also work with the <code>requiredEnv</code> function.</p>
-<h2 id="paths-overview">Paths Overview<a class="headerlink" href="#paths-overview" title="Permanent link">&para;</a></h2>
-<p>Using spec files in conjunction with CLI arguments can be a bit confusing.</p>
-<p>A few rules to clear up this ambiguity:</p>
-<ul>
-<li>Absolute paths are always resolved as absolute paths</li>
-<li>Relative paths referenced in the appfile spec itself are relative to that spec.</li>
-<li>Relative paths referenced on the command line are relative to the current working directory the user is in</li>
+<li>Marketplace: https://github.com/marketplace/actions/github-action-for-appfile-cli</li>
+<li>Repository URL: https://github.com/renehernandez/action-appfile</li>
 </ul>
                 
                   
@@ -587,7 +535,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../cli_reference/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href=".." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -596,19 +544,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                CLI Reference
+                Home
               </div>
             </div>
           </a>
         
         
-          <a href="../examples/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../cli_reference/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Examples
+                CLI Reference
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

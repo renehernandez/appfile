@@ -16,7 +16,7 @@
     
     
       
-        <title>Writing appfile - appfile</title>
+        <title>Examples - appfile</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#writing-appfile" class="md-skip">
+        <a href="#examples" class="md-skip">
           Skip to content
         </a>
       
@@ -89,7 +89,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Writing appfile
+              Examples
             
           </span>
         </div>
@@ -295,6 +295,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../writing_appfile/" class="md-nav__link">
+      Writing appfile
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -306,12 +318,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Writing appfile
+        Examples
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      Writing appfile
+      Examples
     </a>
     
       
@@ -328,42 +340,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#defaults" class="md-nav__link">
-    Defaults
+  <a href="#non-customized-appfile" class="md-nav__link">
+    Non-customized appfile
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#templating" class="md-nav__link">
-    Templating
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    Environment Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="Environment Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#paths-overview" class="md-nav__link">
-    Paths Overview
+  <a href="#deploying-a-rails-application" class="md-nav__link">
+    Deploying a Rails application
   </a>
   
 </li>
@@ -372,18 +357,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../examples/" class="md-nav__link">
-      Examples
-    </a>
   </li>
 
         
@@ -477,42 +450,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#defaults" class="md-nav__link">
-    Defaults
+  <a href="#non-customized-appfile" class="md-nav__link">
+    Non-customized appfile
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#templating" class="md-nav__link">
-    Templating
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variables" class="md-nav__link">
-    Environment Variables
-  </a>
-  
-    <nav class="md-nav" aria-label="Environment Variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#note" class="md-nav__link">
-    Note
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#paths-overview" class="md-nav__link">
-    Paths Overview
+  <a href="#deploying-a-rails-application" class="md-nav__link">
+    Deploying a Rails application
   </a>
   
 </li>
@@ -530,32 +476,238 @@
               
                 
                 
-                <h1 id="writing-appfile">Writing appfile<a class="headerlink" href="#writing-appfile" title="Permanent link">&para;</a></h1>
-<h2 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The default name for an appfile is <code>appfile.yaml</code></li>
-<li>The default environment is <code>default</code></li>
-<li>The access token to DigitalOcean can be specified through the <code>access-token</code> option or the <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</li>
-</ul>
-<h2 id="templating">Templating<a class="headerlink" href="#templating" title="Permanent link">&para;</a></h2>
-<p>Appfile uses <a href="https://godoc.org/text/template">go templates</a> for templating your <code>appfile.yaml</code>. While golang ships several built-in functions, we have added all of the functions in the <a href="https://godoc.org/github.com/Masterminds/sprig">sprig library</a>.</p>
-<p>We also added the following functions:</p>
-<ul>
-<li><code>requiredEnv</code>: allows you to declare a particular environment variable as required for template rendering. If the value is not set, the template rendering step will fail with an error message.</li>
-<li><code>toYaml</code>: allows you to get a values block and output the corresponding yaml representation</li>
-</ul>
-<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
-<p>Environments variables can be used anywhere for templating the appfile.</p>
-<h3 id="note">Note<a class="headerlink" href="#note" title="Permanent link">&para;</a></h3>
-<p>If you wish to treat your environment variables as strings always, even if they are boolean or numeric values you can use <code>{{ env "ENV_NAME" | quote }}</code> or <code>"{{ env "ENV_NAME" }}"</code>. These approaches also work with the <code>requiredEnv</code> function.</p>
-<h2 id="paths-overview">Paths Overview<a class="headerlink" href="#paths-overview" title="Permanent link">&para;</a></h2>
-<p>Using spec files in conjunction with CLI arguments can be a bit confusing.</p>
-<p>A few rules to clear up this ambiguity:</p>
-<ul>
-<li>Absolute paths are always resolved as absolute paths</li>
-<li>Relative paths referenced in the appfile spec itself are relative to that spec.</li>
-<li>Relative paths referenced on the command line are relative to the current working directory the user is in</li>
-</ul>
+                <h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
+<h2 id="non-customized-appfile">Non-customized appfile<a class="headerlink" href="#non-customized-appfile" title="Permanent link">&para;</a></h2>
+<p>Check the code <a href="https://github.com/renehernandez/appfile/tree/main/examples/static_site">here</a></p>
+<p>This example will deploy a static site without any custom values nor environment values.</p>
+<pre><code class="language-yaml"># appfile.yaml
+specs:
+- ./app.yaml
+</code></pre>
+<pre><code class="language-yaml"># app.yaml
+name: sample-html
+
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: renehernandez/sample-html
+  name: sample-html
+</code></pre>
+<p>Sync your App specification to DigitalOcean App Platform by running:</p>
+<p>Using access token flag:</p>
+<pre><code class="language-console">appfile sync --file /path/to/appfile.yaml --access-token &lt;token&gt;
+</code></pre>
+<p>Using <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</p>
+<pre><code class="language-console">appfile sync --file /path/to/appfile.yaml
+</code></pre>
+<p>For the example above, you don&rsquo;t need <code>appfile</code>, you can use instead the <a href="https://github.com/digitalocean/doctl">doctl cli</a> to deploy your app. Let&rsquo;s look at a more interesting example next with a fictitious Django app, which will show the flexibility of environments.</p>
+<h2 id="deploying-a-rails-application">Deploying a Rails application<a class="headerlink" href="#deploying-a-rails-application" title="Permanent link">&para;</a></h2>
+<p>Check the code <a href="https://github.com/renehernandez/appfile/tree/main/examples/rails_app">here</a></p>
+<p>The app spec declares a rails service, a migration job and a database. The 2 environments: <em>review</em> and <em>production</em> will customize the final App spec that gets synced with DigitalOcean. Let&rsquo;s look at the <code>appfile.yaml</code>, <code>app.yaml</code> and environments definitions below.</p>
+<pre><code class="language-yaml"># appfile.yaml
+environments:
+  review:
+  - ./envs/review.yaml
+  production:
+  - ./envs/production.yaml
+
+specs:
+- ./app.yaml
+</code></pre>
+<pre><code class="language-yaml">name: {{ .Values.name }}
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;repo_name&gt;
+    tag: {{ requiredEnv &quot;IMAGE_TAG&quot; }}
+  instance_size_slug: {{ .Values.rails.instance_slug }}
+  instance_count: {{ .Values.rails.instance_count }}
+  envs:
+{{- range $key, $value := .Values.rails.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name &quot;review&quot; }}
+- name: postgres
+  image:
+    registry_type: DOCR
+    repository: postgres
+    tag: '12.4'
+  internal_ports:
+    - 5432
+  envs:
+{{- range $key, $value := .Values.postgres.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+{{- end }}
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;repo_name&gt;
+    tag: {{ requiredEnv &quot;IMAGE_TAG&quot; }}****
+  envs:
+{{- range $key, $value := .Values.migrations.envs }}
+  - key: {{ $key }}
+    value: {{ $value }}
+{{- end }}
+
+{{- if eq .Environment.Name &quot;production&quot; }}
+databases:
+- name: db
+  production: true
+  cluster_name: mydatabase
+  engine: PG
+  version: &quot;12&quot;
+{{- end }}
+</code></pre>
+<pre><code class="language-yaml"># review.yaml
+name: sample-{{ requiredEnv &quot;REVIEW_HOSTNAME&quot; }}
+
+.common_envs: &amp;common_envs
+  DB_USERNAME: postgres
+  DB_PASSWORD: password
+  RAILS_ENV: production
+
+rails:
+  instance_slug: basic-xxs
+  instance_count: 1
+  envs:
+  &lt;&lt;: *common_envs
+
+postgres:
+  envs:
+    POSTGRES_USER: postgres
+    POSTGRES_DB: mydatabase
+    POSTGRES_PASSWORD: password
+
+migrations:
+  envs:
+  &lt;&lt;: *common_envs
+</code></pre>
+<pre><code class="language-yaml"># production.yaml
+name: sample-production
+
+.common_envs: &amp;common_envs
+  DB_USERNAME: postgres
+  DB_PASSWORD: strong_password
+  RAILS_ENV: production
+
+rails:
+  instance_slug: professional-xs
+  instance_count: 3
+  envs:
+  &lt;&lt;: *common_envs
+
+migrations:
+  envs:
+  &lt;&lt;: *common_envs
+</code></pre>
+<p>You can deploy your App in review by running:</p>
+<pre><code class="language-console">IMAGE_TAG='fad7869fdaldabh23' REVIEW_HOSTNAME='fix-bug' appfile sync --file /path/to/appfile.yaml --environment review
+</code></pre>
+<p>This would deploy a public rails service, and internal postgres service (the database running on a container) and would run the migration job. The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-fix-bug
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;app-repo&gt;
+    tag: fad7869fdaldabh23
+  instance_size_slug: basic-xxs
+  instance_count: 1
+  routes:
+  - path: /
+  envs:
+  - key: DB_PASSWORD
+    value: password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+- name: postgres
+  image:
+    registry_type: DOCR
+    repository: postgres
+    tag: '12.4'
+  internal_ports:
+    - 5432
+  envs:
+  - key: POSTGRES_DB
+    value: mydatabase
+  - key: POSTGRES_PASSWORD
+    value: password
+  - key: POSTGRES_USER
+    value: postgres
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;migration-repo&gt;
+    tag: fad7869fdaldabh23
+  envs:
+  - key: DB_PASSWORD
+    value: password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+</code></pre>
+<p>Or you can deploy your App in production instead:</p>
+<pre><code class="language-console">IMAGE_TAG='fad7869fdaldabh23' appfile sync --file /path/to/appfile.yaml --environment production
+</code></pre>
+<p>This would deploy a public rails service and a migration job. Both components would connect to an existing database. The final App spec to be synced to DigitalOcean would be:</p>
+<pre><code class="language-yaml">name: sample-production
+
+services:
+- name: rails-app
+  image:
+    registry_type: DOCR
+    repository: &lt;app-repo&gt;
+    tag: fad7869fdaldabh23
+  instance_size_slug: professional-xs
+  instance_count: 3
+  routes:
+  - path: /
+  envs:
+  - key: DB_PASSWORD
+    value: strong_password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+jobs:
+- name: migrations
+  image:
+    registry_type: DOCR
+    repository: &lt;migration-repo&gt;
+    tag: fad7869fdaldabh23
+  envs:
+  - key: DB_PASSWORD
+    value: strong_password
+  - key: DB_USERNAME
+    value: postgres
+  - key: RAILS_ENV
+    value: production
+
+databases:
+- name: db
+  production: true
+  cluster_name: mydb
+  engine: PG
+  version: &quot;12&quot;
+</code></pre>
                 
                   
                     
@@ -587,7 +739,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../cli_reference/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../writing_appfile/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -596,19 +748,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                CLI Reference
+                Writing appfile
               </div>
             </div>
           </a>
         
         
-          <a href="../examples/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../CHANGELOG/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Examples
+                Changelog
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

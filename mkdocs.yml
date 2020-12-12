@@ -1,8 +1,26 @@
 site_name: appfile
-repo_url: https://github.com/renehernandez/appfile
+site_author: Rene Hernandez
+
+repo_name: renehernandez/appfile
+repo_url: https://github.com/renehernandez/appfile/
+edit_uri: ''
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - CLI Reference: cli_reference.md
+    - Writing appfile: writing_appfile.md
+    - Examples: examples.md
+  - About:
+    - Changelog: CHANGELOG.md
+    - License: LICENSE.md
+    - Contributing: Contributing.md
 
 theme:
-  name: readthedocs
+  name: material
+  features:
+    - navigation.tabs
   collapse_navigation: false
   hljs_languages:
     - yaml
@@ -20,4 +38,6 @@ markdown_extensions:
 
 plugins:
   - search
-  - git-revision-date-localized
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true

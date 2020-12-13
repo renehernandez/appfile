@@ -2,13 +2,13 @@
 
 `appfile` is a CLI plus a specification, to manage deployments of customizable App Specs to DigitalOcean App Platform.
 
-It supports reading an *appfile.yaml* with multiple declared app specifications to manage. Alternative, it fallbacks to process a single [app spec](https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/).
+It supports reading an *appfile.yaml* with multiple declared app specifications to manage. Alternative, it falls back to process a single [app spec](https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/).
 
 ## Features
 
 * Keep a directory of app spec values files and maintain changes in version control.
 
-This allows you to support multiple environments with different components and configurations per `app.yaml` file.
+This allows you to support multiple environments with different components and configurations per *app.yaml* file.
 
 * Apply CI/CD to configuration changes.
 

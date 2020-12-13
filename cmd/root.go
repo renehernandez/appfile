@@ -81,19 +81,31 @@ func (root *rootCmd) logOptions(cmd *cobra.Command) {
 }
 
 func (root *rootCmd) appfileFromSpec() *apps.Appfile {
-	log.Debugln("Start reading appfile spec")
+	log.Debugln("Start parsing appfile spec")
 	templatedYaml, err := tmpl.RenderFromFile(root.File())
 	errors.CheckAndFail(err)
 
 	var spec apps.AppfileSpec
 	err = yaml.ParseAppfileSpec(templatedYaml, &spec)
-	errors.CheckAndFailf(err, "Could not parse resulting yaml from file %s", root.File())
+	var appfile *apps.Appfile
 
-	err = spec.SetPath(root.File())
-	errors.CheckAndFailf(err, "Could not generate absolute path for file %s", root.File())
-	log.Debugln("Finished reading appfile spec")
+	if err != nil || !spec.IsValid() {
+		log.Debugf("Could not parse appfile specification from file %s", root.File())
+		log.Debugf("Try parsing app specification instead")
 
-	appfile, err := apps.NewAppfileFromSpec(&spec, root.Environment())
+		var appSpec apps.AppSpec
+		err = yaml.ParseAppSpec(templatedYaml, &appSpec)
+		errors.CheckAndFailf(err, "Could parse app specification from file %s", root.File())
+
+		appfile, err = apps.NewAppfileFromAppSpec(&appSpec)
+	} else {
+		err = spec.SetPath(root.File())
+		errors.CheckAndFailf(err, "Could not generate absolute path for file %s", root.File())
+		log.Debugln("Finished reading appfile spec")
+
+		appfile, err = apps.NewAppfileFromSpec(&spec, root.Environment())
+	}
+
 	errors.CheckAndFail(err)
 
 	return appfile

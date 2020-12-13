@@ -29,6 +29,10 @@ func (spec *AppfileSpec) SetPath(path string) error {
 	return err
 }
 
+func (spec *AppfileSpec) IsValid() bool {
+	return len(spec.AppSpecs) > 0
+}
+
 func (spec *AppfileSpec) hasEnvironment(name string) bool {
 	_, ok := spec.Environments[name]
 	return ok

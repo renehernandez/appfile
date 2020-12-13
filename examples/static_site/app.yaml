@@ -1,6 +1,6 @@
 name: {{ .Values.spec_name }}
 
-services:
+static_sites:
 - environment_slug: html
   github:
     branch: main

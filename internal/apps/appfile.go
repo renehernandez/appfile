@@ -25,6 +25,18 @@ type Appfile struct {
 	Apps  []*godo.App
 }
 
+func NewAppfileFromAppSpec(spec *AppSpec) (*Appfile, error) {
+	spec.SetDefaultValues()
+
+	return &Appfile{
+		Spec:  &AppfileSpec{},
+		State: &StateData{},
+		Apps: []*godo.App{
+			{Spec: &spec.AppSpec},
+		},
+	}, nil
+}
+
 func NewAppfileFromSpec(spec *AppfileSpec, envName string) (*Appfile, error) {
 	env, err := spec.ReadEnvironment(envName)
 	if err != nil {

@@ -1,5 +1,7 @@
 # Examples
 
+## Reading an app.yaml specification directly
+
 ## Non-customized appfile
 
 Check the code [here](https://github.com/renehernandez/appfile/tree/main/examples/static_site)

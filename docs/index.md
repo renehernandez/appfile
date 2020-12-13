@@ -1,6 +1,8 @@
 # What is Appfile?
 
-`appfile` is a CLI to deploy App Specs to DigitalOcean App Platform.
+`appfile` is a CLI plus a specification, to manage deployments of customizable App Specs to DigitalOcean App Platform.
+
+It supports reading an *appfile.yaml* with multiple declared app specifications to manage. Alternative, it fallbacks to process a single [app spec](https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/).
 
 ## Features
 
@@ -15,3 +17,7 @@ Using `appfile` directly or the [appfile action](https://github.com/renehernande
 * Visualize a diff of the changes to be applied.
 
 It lets you print a diff in console, which helps you verify that the correct changes are going to be deployed into App Platform
+
+* Show status of apps
+
+Using `appfile`, you can see the status of your declared Apps, which includes essential information such as: last update, deployment ID, live URL, among others.

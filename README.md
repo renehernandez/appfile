@@ -35,11 +35,11 @@ You can leverage `appfile` with your Github Actions workflows, by using `action-
 
 ## Getting Started
 
-Let's look at several app examples and see how `appfile` can help you to manage your App specification and deployments.
+Let's look at an example and see how `appfile` can help you to manage your App specification and deployments.
 
 ## Deploy a web service
 
-This next example deploys an App containing a service definition. The 2 environments: *review* and *production* will customize the final specification of the app to be deployed. Let's look at the `appfile.yaml`, `app.yaml` and environments definitions below.
+This example deploys an App containing a service definition. The 2 environments: *review* and *production* will customize the final specification of the app to be deployed. Let's look at the `appfile.yaml`, `app.yaml` and environments definitions below.
 
 ```yaml
 # appfile.yaml
@@ -130,7 +130,7 @@ services:
     value: Appfile Prod
 ```
 
-To check out more documentation, go to [appfile docs](https://renehernandez.github.io/appfile/latest)
+To learn more about `appfile`, check out the [docs](https://renehernandez.github.io/appfile/latest)
 
 ## Contributing
 

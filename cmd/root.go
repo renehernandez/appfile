@@ -54,7 +54,7 @@ func NewRootCmd() *cobra.Command {
 	cmd.AddCommand(newDiffCmd(&root))
 	cmd.AddCommand(newSyncCmd(&root))
 	cmd.AddCommand(newDestroyCmd(&root))
-	cmd.AddCommand(newListCmd(&root))
+	cmd.AddCommand(newStatusCmd(&root))
 
 	return cmd
 }

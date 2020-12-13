@@ -340,8 +340,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#non-customized-appfile" class="md-nav__link">
-    Non-customized appfile
+  <a href="#reading-an-appyaml-specification-directly" class="md-nav__link">
+    Reading an app.yaml specification directly
   </a>
   
 </li>
@@ -450,8 +450,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#non-customized-appfile" class="md-nav__link">
-    Non-customized appfile
+  <a href="#reading-an-appyaml-specification-directly" class="md-nav__link">
+    Reading an app.yaml specification directly
   </a>
   
 </li>
@@ -477,9 +477,23 @@
                 
                 
                 <h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
-<h2 id="non-customized-appfile">Non-customized appfile<a class="headerlink" href="#non-customized-appfile" title="Permanent link">&para;</a></h2>
-<p>Check the code <a href="https://github.com/renehernandez/appfile/tree/main/examples/static_site">here</a></p>
-<p>This example will deploy a static site without any custom values nor environment values.</p>
+<h2 id="reading-an-appyaml-specification-directly">Reading an app.yaml specification directly<a class="headerlink" href="#reading-an-appyaml-specification-directly" title="Permanent link">&para;</a></h2>
+<p><code>appfile</code> supports reading a plain <em>app.yaml</em> file. The following <em>app.yaml</em> declares a static_site:</p>
+<pre><code class="language-yaml"># app.yaml
+name: sample-html
+
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: renehernandez/sample-html
+  name: sample-html
+</code></pre>
+<p>It can be deployed using <code>appfile</code> as follows:</p>
+<pre><code class="language-shell">appfile sync --file /path/to/app.yaml --access-token &lt;token&gt;
+</code></pre>
+<p>This would be equivalent to declare an <em>appfile.yaml</em> as follows:</p>
 <pre><code class="language-yaml"># appfile.yaml
 specs:
 - ./app.yaml
@@ -495,14 +509,14 @@ static_sites:
     repo: renehernandez/sample-html
   name: sample-html
 </code></pre>
-<p>Sync your App specification to DigitalOcean App Platform by running:</p>
+<p>And then, sync your App specification to DigitalOcean App Platform by running:</p>
 <p>Using access token flag:</p>
 <pre><code class="language-console">appfile sync --file /path/to/appfile.yaml --access-token &lt;token&gt;
 </code></pre>
 <p>Using <code>DIGITALOCEAN_ACCESS_TOKEN</code> environment variable</p>
 <pre><code class="language-console">appfile sync --file /path/to/appfile.yaml
 </code></pre>
-<p>For the example above, you don&rsquo;t need <code>appfile</code>, you can use instead the <a href="https://github.com/digitalocean/doctl">doctl cli</a> to deploy your app. Let&rsquo;s look at a more interesting example next with a fictitious Django app, which will show the flexibility of environments.</p>
+<p>For the example above, you don&rsquo;t need <code>appfile</code>, you can use instead the <a href="https://github.com/digitalocean/doctl">doctl cli</a> to deploy your app. Let&rsquo;s look at a more interesting example next with a fictitious Rails app, which will show the flexibility of environments.</p>
 <h2 id="deploying-a-rails-application">Deploying a Rails application<a class="headerlink" href="#deploying-a-rails-application" title="Permanent link">&para;</a></h2>
 <p>Check the code <a href="https://github.com/renehernandez/appfile/tree/main/examples/rails_app">here</a></p>
 <p>The app spec declares a rails service, a migration job and a database. The 2 environments: <em>review</em> and <em>production</em> will customize the final App spec that gets synced with DigitalOcean. Let&rsquo;s look at the <code>appfile.yaml</code>, <code>app.yaml</code> and environments definitions below.</p>
@@ -716,7 +730,7 @@ databases:
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 12, 2020</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 13, 2020</span>
     
   </small>
 </div>

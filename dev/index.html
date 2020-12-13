@@ -459,12 +459,13 @@
                 
                 
                 <h1 id="what-is-appfile">What is Appfile?<a class="headerlink" href="#what-is-appfile" title="Permanent link">&para;</a></h1>
-<p><code>appfile</code> is a CLI to deploy App Specs to DigitalOcean App Platform.</p>
+<p><code>appfile</code> is a CLI plus a specification, to manage deployments of customizable App Specs to DigitalOcean App Platform.</p>
+<p>It supports reading an <em>appfile.yaml</em> with multiple declared app specifications to manage. Alternative, it falls back to process a single <a href="https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/">app spec</a>.</p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Keep a directory of app spec values files and maintain changes in version control.</li>
 </ul>
-<p>This allows you to support multiple environments with different components and configurations per <code>app.yaml</code> file.</p>
+<p>This allows you to support multiple environments with different components and configurations per <em>app.yaml</em> file.</p>
 <ul>
 <li>Apply CI/CD to configuration changes.</li>
 </ul>
@@ -473,6 +474,10 @@
 <li>Visualize a diff of the changes to be applied.</li>
 </ul>
 <p>It lets you print a diff in console, which helps you verify that the correct changes are going to be deployed into App Platform</p>
+<ul>
+<li>Show status of apps</li>
+</ul>
+<p>Using <code>appfile</code>, you can see the status of your declared Apps, which includes essential information such as: last update, deployment ID, live URL, among others.</p>
                 
                   
                     
@@ -481,7 +486,7 @@
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 12, 2020</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 13, 2020</span>
     
   </small>
 </div>

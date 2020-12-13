@@ -1,8 +1,7 @@
 package apps
 
 type AppStatus struct {
-	Name string
-
+	Name         string
 	Status       DeploymentStatus
 	DeploymentID string
 	UpdatedAt    string

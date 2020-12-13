@@ -152,7 +152,7 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 	return appDiffs, nil
 }
 
-func (appfile *Appfile) List(token string) ([]*AppStatus, error) {
+func (appfile *Appfile) Status(token string) ([]*AppStatus, error) {
 	remoteApps, err := appfile.readAppsFromRemote(token)
 	if err != nil {
 		return []*AppStatus{}, err
@@ -165,28 +165,30 @@ func (appfile *Appfile) List(token string) ([]*AppStatus, error) {
 			Name:         localApp.Spec.Name,
 			Status:       DeploymentStatusUnknown,
 			URL:          "-",
-			DeploymentID: "-",
 			UpdatedAt:    "-",
+			DeploymentID: "-",
 		}
 
 		remoteApp, ok := remoteApps[localApp.Spec.Name]
 
 		if ok {
-			appStatus.UpdatedAt = remoteApp.UpdatedAt.String()
-			appStatus.URL = remoteApp.LiveDomain
-
 			if remoteApp.InProgressDeployment != nil {
 				appStatus.DeploymentID = remoteApp.InProgressDeployment.ID
 				appStatus.Status = DeploymentStatusInProgress
-			} else {
+			} else if remoteApp.ActiveDeployment != nil {
 				appStatus.DeploymentID = remoteApp.ActiveDeployment.ID
 				appStatus.Status = DeploymentStatusDeployed
 			}
-		} else {
-			log.Debugf("%s app not found in App Platform", localApp.Spec.Name)
-		}
 
-		appsStatus = append(appsStatus, appStatus)
+			if appStatus.Status != DeploymentStatusUnknown {
+				appStatus.UpdatedAt = remoteApp.UpdatedAt.String()
+				appStatus.URL = remoteApp.LiveDomain
+			}
+
+			appsStatus = append(appsStatus, appStatus)
+		} else {
+			log.Warningf("%s app not found in App Platform", localApp.Spec.Name)
+		}
 	}
 
 	return appsStatus, nil

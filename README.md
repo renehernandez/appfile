@@ -9,6 +9,7 @@ Deploy App Specs to DigitalOcean App Platform
 * Keep a directory of app spec values files and maintain changes in version control
 * Apply CI/CD to configuration changes
 * Visualize a diff of the changes to be applied
+* See the status of your app
 
 ## Installation
 

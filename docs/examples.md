@@ -1,10 +1,29 @@
 # Examples
 
-## Non-customized appfile
+## Reading an app.yaml specification directly
 
-Check the code [here](https://github.com/renehernandez/appfile/tree/main/examples/static_site)
+`appfile` supports reading a plain *app.yaml* file. The following *app.yaml* declares a static_site:
 
-This example will deploy a static site without any custom values nor environment values.
+```yaml
+# app.yaml
+name: sample-html
+
+static_sites:
+- environment_slug: html
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: renehernandez/sample-html
+  name: sample-html
+```
+
+It can be deployed using `appfile` as follows:
+
+```shell
+appfile sync --file /path/to/app.yaml --access-token <token>
+```
+
+This would be equivalent to declare an *appfile.yaml* as follows:
 
 ```yaml
 # appfile.yaml
@@ -25,7 +44,7 @@ static_sites:
   name: sample-html
 ```
 
-Sync your App specification to DigitalOcean App Platform by running:
+And then, sync your App specification to DigitalOcean App Platform by running:
 
 Using access token flag:
 
@@ -39,8 +58,7 @@ Using `DIGITALOCEAN_ACCESS_TOKEN` environment variable
 appfile sync --file /path/to/appfile.yaml
 ```
 
-For the example above, you don't need `appfile`, you can use instead the [doctl cli](https://github.com/digitalocean/doctl) to deploy your app. Let's look at a more interesting example next with a fictitious Django app, which will show the flexibility of environments.
-
+For the example above, you don't need `appfile`, you can use instead the [doctl cli](https://github.com/digitalocean/doctl) to deploy your app. Let's look at a more interesting example next with a fictitious Rails app, which will show the flexibility of environments.
 
 ## Deploying a Rails application
 

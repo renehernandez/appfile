@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.0.6](https://github.com/renehernandez/appfile/tree/v0.0.6) (2020-12-14)
+
+**Implemented enhancements:**
+
+- Replace list command with status command [\#29](https://github.com/renehernandez/appfile/issues/29)
+- Read directly app.yaml [\#24](https://github.com/renehernandez/appfile/issues/24)
+- Replace list command with status [\#30](https://github.com/renehernandez/appfile/pull/30)
+- Support processing app specification directly [\#28](https://github.com/renehernandez/appfile/pull/28)
+
+**Documentation:**
+
+- Add redirect generation [\#32](https://github.com/renehernandez/appfile/pull/32)
+- General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
+
 ## [v0.0.5](https://github.com/renehernandez/appfile/tree/v0.0.5) (2020-12-12)
 
 **Implemented enhancements:**

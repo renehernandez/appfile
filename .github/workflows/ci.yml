@@ -72,9 +72,11 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./docs/scripts/requirements.txt
       - name: Build site
+        env:
+          APPFILE_VERSION: ${{ env.CI_REF_NAME }}
         run: |
-          go run ./docs/scripts/generate_docs.go
-          python docs/scripts/fixer.py
+          go run ./docs/scripts/docs.go
+          ./docs/scripts/copy_docs.sh
           mkdocs build
       - uses: peaceiris/actions-gh-pages@v3
         if: env.CI_REF_NAME == 'main'

@@ -3,7 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -101,7 +103,7 @@ func printOptions(buf *bytes.Buffer, cmd *cobra.Command, name string) error {
 	return nil
 }
 
-func main() {
+func generateCliReference() {
 	buffer := &bytes.Buffer{}
 	generateCommandsReference(buffer)
 	generateCommandsHelp(buffer)
@@ -116,4 +118,33 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func generateRedirect() {
+	version := os.Getenv("APPFILE_VERSION")
+
+	content, err := ioutil.ReadFile("./docs/scripts/index.html.gotmpl")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := os.Mkdir("./docs/redirect", os.ModePerm); err != nil {
+		log.Fatal(err)
+	}
+
+	f, err := os.Create("./docs/redirect/index.html")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tmpl := template.Must(template.New("redirect").Parse(string(content)))
+
+	tmpl.Execute(f, version)
+}
+
+func main() {
+	generateCliReference()
+	generateRedirect()
 }

@@ -17,6 +17,8 @@ vendor/
 *token
 dist
 site
-docs/cmd/*
-!docs/cmd/.gitkeep
+docs/redirect
+docs/cli_reference.md
+docs/LICENSE.md
+docs/CHANGELOG.md
 

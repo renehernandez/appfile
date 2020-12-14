@@ -75,7 +75,7 @@ jobs:
         env:
           APPFILE_VERSION: ${{ env.CI_REF_NAME }}
         run: |
-          go run ./docs/scripts/generate_docs.go
+          go run ./docs/scripts/docs.go
           ./docs/scripts/copy_docs.sh
           mkdocs build
       - uses: peaceiris/actions-gh-pages@v3

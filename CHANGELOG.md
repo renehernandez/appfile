@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.0.7](https://github.com/renehernandez/appfile/tree/v0.0.7) (2020-12-14)
+
+**Fixed bugs:**
+
+- Fix redirect URL [\#34](https://github.com/renehernandez/appfile/pull/34)
+- Keep files when pushing redirection update [\#33](https://github.com/renehernandez/appfile/pull/33)
+
+**Documentation:**
+
+- Redirect to latest documentation [\#26](https://github.com/renehernandez/appfile/issues/26)
+
 ## [v0.0.6](https://github.com/renehernandez/appfile/tree/v0.0.6) (2020-12-14)
 
 **Implemented enhancements:**

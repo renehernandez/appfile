@@ -6,6 +6,7 @@ static_sites:
     branch: main
     deploy_on_push: {{ .Values.deploy_on_push }}
     repo: renehernandez/sample-html
-  name: sample-html-{{ .Environment.Name }}
+  name: hello
+  instance_size_slug: hello-word
 
 region: {{ .Values.region }}

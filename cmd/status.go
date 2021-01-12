@@ -45,7 +45,7 @@ func newStatusCmd(rootCmd *rootCmd) *cobra.Command {
 func (status *statusCmd) run() {
 	appfile := status.appfileFromSpec()
 
-	appsStatus, err := appfile.Status(status.accessToken)
+	appsStatus, err := appfile.Status()
 	errors.CheckAndFail(err)
 
 	table := uitable.New()

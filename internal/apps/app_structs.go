@@ -2,9 +2,9 @@ package apps
 
 import (
 	"github.com/digitalocean/godo"
-	"github.com/goccy/go-yaml"
 	"github.com/pkg/errors"
 	"github.com/sergi/go-diff/diffmatchpatch"
+	"gopkg.in/yaml.v2"
 )
 
 type AppDiff struct {
@@ -47,4 +47,25 @@ func appSpecToString(app *godo.App) (string, error) {
 	}
 
 	return string(b), nil
+}
+
+type AppStatus struct {
+	Name         string
+	Status       DeploymentStatus
+	DeploymentID string
+	UpdatedAt    string
+	URL          string
+}
+
+type DeploymentStatus string
+
+const (
+	DeploymentStatusUnknown    DeploymentStatus = "unknown"
+	DeploymentStatusDeployed   DeploymentStatus = "deployed"
+	DeploymentStatusInProgress DeploymentStatus = "in progress"
+)
+
+type AppLint struct {
+	Name  string
+	Error error
 }

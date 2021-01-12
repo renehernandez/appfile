@@ -46,7 +46,7 @@ func newDiffCmd(rootCmd *rootCmd) *cobra.Command {
 func (diff *diffCmd) run() {
 	appfile := diff.appfileFromSpec()
 
-	diffs, err := appfile.Diff(diff.accessToken)
+	diffs, err := appfile.Diff()
 	errors.CheckAndFail(err)
 
 	dmp := diffmatchpatch.New()

@@ -19,25 +19,27 @@ type StateData struct {
 }
 
 type Appfile struct {
-	Spec *AppfileSpec
+	Spec      *AppfileSpec
+	State     *StateData
+	LocalApps []*godo.App
 
-	State *StateData
-	Apps  []*godo.App
+	token string
 }
 
-func NewAppfileFromAppSpec(spec *AppSpec) (*Appfile, error) {
+func NewAppfileFromAppSpec(spec *AppSpec, token string) (*Appfile, error) {
 	spec.SetDefaultValues()
 
 	return &Appfile{
 		Spec:  &AppfileSpec{},
 		State: &StateData{},
-		Apps: []*godo.App{
+		LocalApps: []*godo.App{
 			{Spec: &spec.AppSpec},
 		},
+		token: token,
 	}, nil
 }
 
-func NewAppfileFromSpec(spec *AppfileSpec, envName string) (*Appfile, error) {
+func NewAppfileFromSpec(spec *AppfileSpec, envName string, token string) (*Appfile, error) {
 	env, err := spec.ReadEnvironment(envName)
 	if err != nil {
 		return &Appfile{}, err
@@ -56,21 +58,22 @@ func NewAppfileFromSpec(spec *AppfileSpec, envName string) (*Appfile, error) {
 	}
 
 	return &Appfile{
-		Spec:  spec,
-		State: &state,
-		Apps:  apps,
+		Spec:      spec,
+		State:     &state,
+		LocalApps: apps,
+		token:     token,
 	}, nil
 }
 
-func (appfile *Appfile) Sync(token string) error {
-	remoteApps, err := appfile.readAppsFromRemote(token)
+func (appfile *Appfile) Sync() error {
+	remoteApps, err := appfile.readAppsFromRemote()
 	if err != nil {
 		return err
 	}
 
-	svc := do.NewAppService(token)
+	svc := do.NewAppService(appfile.token)
 
-	for _, localApp := range appfile.Apps {
+	for _, localApp := range appfile.LocalApps {
 		log.Infof("Syncing app %s", localApp.Spec.Name)
 		remoteApp, ok := remoteApps[localApp.Spec.Name]
 		if !ok {
@@ -88,17 +91,17 @@ func (appfile *Appfile) Sync(token string) error {
 	return nil
 }
 
-func (appfile *Appfile) Destroy(token string) error {
-	remoteApps, err := appfile.readAppsFromRemote(token)
+func (appfile *Appfile) Destroy() error {
+	remoteApps, err := appfile.readAppsFromRemote()
 	if err != nil {
 		return err
 	}
 
-	appSvc := do.NewAppService(token)
-	domainSvc := do.NewDomainService(token)
+	appSvc := do.NewAppService(appfile.token)
+	domainSvc := do.NewDomainService(appfile.token)
 	remoteList := []*godo.App{}
 
-	for _, localApp := range appfile.Apps {
+	for _, localApp := range appfile.LocalApps {
 		remoteApp, ok := remoteApps[localApp.Spec.Name]
 		if !ok {
 			return fmt.Errorf("No app to destroy with name %s", localApp.Spec.Name)
@@ -129,14 +132,14 @@ func (appfile *Appfile) Destroy(token string) error {
 	return nil
 }
 
-func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
-	remoteApps, err := appfile.readAppsFromRemote(token)
+func (appfile *Appfile) Diff() ([]*AppDiff, error) {
+	remoteApps, err := appfile.readAppsFromRemote()
 	if err != nil {
 		return []*AppDiff{}, err
 	}
 	appDiffs := []*AppDiff{}
 
-	for _, localApp := range appfile.Apps {
+	for _, localApp := range appfile.LocalApps {
 		remoteApp, ok := remoteApps[localApp.Spec.Name]
 		if !ok {
 			remoteApp = &godo.App{}
@@ -152,15 +155,15 @@ func (appfile *Appfile) Diff(token string) ([]*AppDiff, error) {
 	return appDiffs, nil
 }
 
-func (appfile *Appfile) Status(token string) ([]*AppStatus, error) {
-	remoteApps, err := appfile.readAppsFromRemote(token)
+func (appfile *Appfile) Status() ([]*AppStatus, error) {
+	remoteApps, err := appfile.readAppsFromRemote()
 	if err != nil {
 		return []*AppStatus{}, err
 	}
 
 	appsStatus := []*AppStatus{}
 
-	for _, localApp := range appfile.Apps {
+	for _, localApp := range appfile.LocalApps {
 		appStatus := &AppStatus{
 			Name:         localApp.Spec.Name,
 			Status:       DeploymentStatusUnknown,
@@ -194,9 +197,34 @@ func (appfile *Appfile) Status(token string) ([]*AppStatus, error) {
 	return appsStatus, nil
 }
 
-func (appfile *Appfile) readAppsFromRemote(token string) (map[string]*godo.App, error) {
+func (appfile *Appfile) Lint() ([]AppLint, error) {
+	remoteApps, err := appfile.readAppsFromRemote()
+	if err != nil {
+		return []AppLint{}, err
+	}
+
+	lints := []AppLint{}
+
+	svc := do.NewAppService(appfile.token)
+
+	for _, localApp := range appfile.LocalApps {
+		remoteApp, ok := remoteApps[localApp.Spec.Name]
+		if ok {
+			localApp.ID = remoteApp.ID
+		}
+
+		lints = append(lints, AppLint{
+			Name:  localApp.Spec.Name,
+			Error: svc.Propose(localApp),
+		})
+	}
+
+	return lints, nil
+}
+
+func (appfile *Appfile) readAppsFromRemote() (map[string]*godo.App, error) {
 	log.Debugln("Get apps running in DigitalOcean")
-	svc := do.NewAppService(token)
+	svc := do.NewAppService(appfile.token)
 
 	remoteApps, err := svc.ListApps()
 	if err != nil {

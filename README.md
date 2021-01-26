@@ -131,7 +131,7 @@ services:
     value: Appfile Prod
 ```
 
-To learn more about `appfile`, check out the [docs](https://renehernandez.github.io/appfile/latest)
+To learn more about `appfile`, check out the [docs](https://renehernandez.github.io/appfile)
 
 ## Contributing
 

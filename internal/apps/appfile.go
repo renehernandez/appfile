@@ -19,9 +19,9 @@ type StateData struct {
 }
 
 type Appfile struct {
-	Spec      *AppfileSpec
-	State     *StateData
-	LocalApps []*godo.App
+	Spec     *AppfileSpec
+	AppSpecs []*AppSpec
+	State    *StateData
 
 	token string
 }
@@ -30,11 +30,11 @@ func NewAppfileFromAppSpec(spec *AppSpec, token string) (*Appfile, error) {
 	spec.SetDefaultValues()
 
 	return &Appfile{
-		Spec:  &AppfileSpec{},
-		State: &StateData{},
-		LocalApps: []*godo.App{
-			{Spec: &spec.AppSpec},
+		Spec: &AppfileSpec{},
+		AppSpecs: []*AppSpec{
+			spec,
 		},
+		State: &StateData{},
 		token: token,
 	}, nil
 }
@@ -52,16 +52,16 @@ func NewAppfileFromSpec(spec *AppfileSpec, envName string, token string) (*Appfi
 		Values: env.Values,
 	}
 
-	apps, err := spec.readApps(&state)
+	appSpecs, err := spec.loadAppSpecs(&state)
 	if err != nil {
 		return &Appfile{}, err
 	}
 
 	return &Appfile{
-		Spec:      spec,
-		State:     &state,
-		LocalApps: apps,
-		token:     token,
+		Spec:     spec,
+		State:    &state,
+		AppSpecs: appSpecs,
+		token:    token,
 	}, nil
 }
 
@@ -73,9 +73,10 @@ func (appfile *Appfile) Sync() error {
 
 	svc := do.NewAppService(appfile.token)
 
-	for _, localApp := range appfile.LocalApps {
-		log.Infof("Syncing app %s", localApp.Spec.Name)
-		remoteApp, ok := remoteApps[localApp.Spec.Name]
+	for _, appSpec := range appfile.AppSpecs {
+		log.Infof("Syncing app %s", appSpec.Name)
+		remoteApp, ok := remoteApps[appSpec.Name]
+		localApp := &godo.App{Spec: appSpec.AppSpec}
 		if !ok {
 			err = svc.Create(localApp)
 		} else {
@@ -101,10 +102,10 @@ func (appfile *Appfile) Destroy() error {
 	domainSvc := do.NewDomainService(appfile.token)
 	remoteList := []*godo.App{}
 
-	for _, localApp := range appfile.LocalApps {
-		remoteApp, ok := remoteApps[localApp.Spec.Name]
+	for _, appSpec := range appfile.AppSpecs {
+		remoteApp, ok := remoteApps[appSpec.Name]
 		if !ok {
-			return fmt.Errorf("No app to destroy with name %s", localApp.Spec.Name)
+			return fmt.Errorf("No app to destroy with name %s", appSpec.Name)
 		}
 
 		remoteList = append(remoteList, remoteApp)
@@ -139,16 +140,16 @@ func (appfile *Appfile) Diff() ([]*AppDiff, error) {
 	}
 	appDiffs := []*AppDiff{}
 
-	for _, localApp := range appfile.LocalApps {
-		remoteApp, ok := remoteApps[localApp.Spec.Name]
+	for _, appSpec := range appfile.AppSpecs {
+		remoteApp, ok := remoteApps[appSpec.Name]
 		if !ok {
 			remoteApp = &godo.App{}
 		}
 
 		appDiffs = append(appDiffs, &AppDiff{
-			Name:      localApp.Spec.Name,
-			localApp:  localApp,
-			remoteApp: remoteApp,
+			Name:       appSpec.Name,
+			localSpec:  appSpec.AppSpec,
+			remoteSpec: remoteApp.Spec,
 		})
 	}
 
@@ -163,16 +164,16 @@ func (appfile *Appfile) Status() ([]*AppStatus, error) {
 
 	appsStatus := []*AppStatus{}
 
-	for _, localApp := range appfile.LocalApps {
+	for _, appSpec := range appfile.AppSpecs {
 		appStatus := &AppStatus{
-			Name:         localApp.Spec.Name,
+			Name:         appSpec.Name,
 			Status:       DeploymentStatusUnknown,
 			URL:          "-",
 			UpdatedAt:    "-",
 			DeploymentID: "-",
 		}
 
-		remoteApp, ok := remoteApps[localApp.Spec.Name]
+		remoteApp, ok := remoteApps[appSpec.Name]
 
 		if ok {
 			if remoteApp.InProgressDeployment != nil {
@@ -190,7 +191,7 @@ func (appfile *Appfile) Status() ([]*AppStatus, error) {
 
 			appsStatus = append(appsStatus, appStatus)
 		} else {
-			log.Warningf("%s app not found in App Platform", localApp.Spec.Name)
+			log.Warningf("%s app not found in App Platform", appSpec.Name)
 		}
 	}
 
@@ -198,25 +199,37 @@ func (appfile *Appfile) Status() ([]*AppStatus, error) {
 }
 
 func (appfile *Appfile) Lint() ([]AppLint, error) {
+	lints := []AppLint{}
+
 	remoteApps, err := appfile.readAppsFromRemote()
 	if err != nil {
 		return []AppLint{}, err
 	}
 
-	lints := []AppLint{}
-
 	svc := do.NewAppService(appfile.token)
 
-	for _, localApp := range appfile.LocalApps {
-		remoteApp, ok := remoteApps[localApp.Spec.Name]
+	for _, appSpec := range appfile.AppSpecs {
+		lint := AppLint{
+			Name:   appSpec.Name,
+			Errors: appSpec.Validate(),
+		}
+
+		lints = append(lints, lint)
+
+		if len(lint.Errors) != 0 {
+			continue
+		}
+
+		remoteApp, ok := remoteApps[appSpec.Name]
+		localApp := &godo.App{
+			Spec: appSpec.AppSpec,
+		}
+
 		if ok {
 			localApp.ID = remoteApp.ID
 		}
 
-		lints = append(lints, AppLint{
-			Name:  localApp.Spec.Name,
-			Error: svc.Propose(localApp),
-		})
+		lint.Errors = append(lint.Errors, svc.Propose(localApp))
 	}
 
 	return lints, nil

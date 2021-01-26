@@ -10,25 +10,25 @@ import (
 type AppDiff struct {
 	Name string
 
-	localApp  *godo.App
-	remoteApp *godo.App
+	localSpec  *godo.AppSpec
+	remoteSpec *godo.AppSpec
 }
 
 func (diff *AppDiff) CalculateDiff() ([]diffmatchpatch.Diff, error) {
-	var localSpec, remoteSpec string
+	var localYaml, remoteYaml string
 	var err error
 
-	if localSpec, err = appSpecToString(diff.localApp); err != nil {
+	if localYaml, err = appSpecToString(diff.localSpec); err != nil {
 		return []diffmatchpatch.Diff{}, err
 	}
 
-	if remoteSpec, err = appSpecToString(diff.remoteApp); err != nil {
+	if remoteYaml, err = appSpecToString(diff.remoteSpec); err != nil {
 		return []diffmatchpatch.Diff{}, err
 	}
 
 	dmp := diffmatchpatch.New()
 
-	fileAdmp, fileBdmp, dmpStrings := dmp.DiffLinesToChars(remoteSpec, localSpec)
+	fileAdmp, fileBdmp, dmpStrings := dmp.DiffLinesToChars(remoteYaml, localYaml)
 	diffs := dmp.DiffMain(fileAdmp, fileBdmp, false)
 	diffs = dmp.DiffCharsToLines(diffs, dmpStrings)
 	diffs = dmp.DiffCleanupSemantic(diffs)
@@ -36,14 +36,14 @@ func (diff *AppDiff) CalculateDiff() ([]diffmatchpatch.Diff, error) {
 	return diffs, nil
 }
 
-func appSpecToString(app *godo.App) (string, error) {
-	if app.Spec == nil {
+func appSpecToString(spec *godo.AppSpec) (string, error) {
+	if spec == nil {
 		return "", nil
 	}
 
-	b, err := yaml.Marshal(app.Spec)
+	b, err := yaml.Marshal(spec)
 	if err != nil {
-		return "", errors.Wrapf(err, "Error converting spec to json string for app %s", app.Spec.Name)
+		return "", errors.Wrapf(err, "Error converting spec to json string for app %s", spec.Name)
 	}
 
 	return string(b), nil
@@ -66,6 +66,6 @@ const (
 )
 
 type AppLint struct {
-	Name  string
-	Error error
+	Name   string
+	Errors []error
 }

@@ -49,10 +49,12 @@ func (lint *lintCmd) run() {
 	errors.CheckAndFail(err)
 
 	for _, lint := range lints {
-		if lint.Error != nil {
-			log.Errorf("[%s] %s", lint.Name, lint.Error)
-		} else {
+		if len(lint.Errors) == 0 {
 			log.Infof("[%s] lint ran successfully", lint.Name)
+		} else {
+			for _, err := range lint.Errors {
+				log.Errorln(err)
+			}
 		}
 	}
 }

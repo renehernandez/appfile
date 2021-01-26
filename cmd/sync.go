@@ -49,9 +49,9 @@ func (sync *syncCmd) run() {
 	err := appfile.Sync()
 	errors.CheckAndFail(err)
 
-	for _, app := range appfile.LocalApps {
-		for _, domain := range app.Spec.Domains {
-			log.Infof("%s app will be accessible at %s", app.Spec.Name, domain.Domain)
+	for _, spec := range appfile.AppSpecs {
+		for _, domain := range spec.Domains {
+			log.Infof("%s app will be accessible at %s", spec.Name, domain.Domain)
 		}
 	}
 }

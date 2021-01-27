@@ -288,9 +288,10 @@ func (sources *sourceSpecValidator) validate() []error {
 		}
 
 		if sources.Image.RegistryType == RegistryTypes.DOCKER_HUB && sources.Image.Registry == "" {
-			errs = append(errs, fmt.Errorf("Image registry for %s %s of type cannot be empty",
+			errs = append(errs, fmt.Errorf("Image registry for %s %s of type %s cannot be empty",
 				sources.Name,
 				strings.ToLower(sources.FieldType),
+				sources.Image.RegistryType,
 			))
 		}
 

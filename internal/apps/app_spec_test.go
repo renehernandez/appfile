@@ -54,41 +54,26 @@ func (suite *AppSpecLintSuite) TestSpecNameLengthCannotBeLongerThan32() {
 }
 
 func (suite *AppSpecLintSuite) TestServiceNameInvalid() {
-	spec := NewAppSpec()
-	spec.Name = "hello-world"
-	svc := &godo.AppServiceSpec{
-		Name: "jkhaldkfjha760-ahdfkj-lahdfklahsd-kahfdkah",
-		Git: &godo.GitSourceSpec{
-			Branch:       "main",
-			RepoCloneURL: "https://example.com",
-		},
-	}
-	spec.Services = []*godo.AppServiceSpec{
-		svc,
-	}
+	spec := validSpec()
+	spec.Services[0].Name = "jkhaldkfjha760-ahdfkj-lahdfklahsd-kahfdkah"
 
 	errs := spec.Validate()
 
 	suite.Len(errs, 2)
 	suite.Equal(
 		errs[0].Error(),
-		fmt.Sprintf("Service name length (%s) must be between 2 and 32 characters long", svc.Name),
+		fmt.Sprintf("Service name length (%s) must be between 2 and 32 characters long", spec.Services[0].Name),
 	)
 	suite.Equal(
 		errs[1].Error(),
-		fmt.Sprintf("Service name (%s) does not match regex ^[a-z][a-z0-9-]{0,30}[a-z0-9]$", svc.Name),
+		fmt.Sprintf("Service name (%s) does not match regex ^[a-z][a-z0-9-]{0,30}[a-z0-9]$", spec.Services[0].Name),
 	)
 }
 
 func (suite *AppSpecLintSuite) TestServiceNeedsAtLeastOneSource() {
-	spec := NewAppSpec()
+	spec := validSpec()
 	spec.Name = "hello-world"
-	svc := &godo.AppServiceSpec{
-		Name: "hello-world-svc",
-	}
-	spec.Services = []*godo.AppServiceSpec{
-		svc,
-	}
+	spec.Services[0].GitHub = nil
 
 	errs := spec.Validate()
 
@@ -99,30 +84,134 @@ func (suite *AppSpecLintSuite) TestServiceNeedsAtLeastOneSource() {
 	)
 }
 
-func (suite *AppSpecLintSuite) TestServiceGithubSourceEmptyBranch() {
+func (suite *AppSpecLintSuite) TestServiceInvalidGitHubSource() {
 	spec := validSpec()
 	spec.Services[0].GitHub.Branch = ""
-
-	errs := spec.Validate()
-
-	suite.Len(errs, 1)
-	suite.Equal(
-		errs[0].Error(),
-		fmt.Sprintf("Github branch for %s service cannot be empty", spec.Services[0].Name),
-	)
-}
-
-func (suite *AppSpecLintSuite) TestServiceGithubSourceInvalidRepo() {
-	spec := validSpec()
 	spec.Services[0].GitHub.Repo = "renehernandez_appfile"
 
 	errs := spec.Validate()
 
-	suite.Len(errs, 1)
+	suite.Len(errs, 2)
 	suite.Equal(
 		errs[0].Error(),
+		fmt.Sprintf("Github branch for %s service cannot be empty", spec.Services[0].Name),
+	)
+	suite.Equal(
+		errs[1].Error(),
 		fmt.Sprintf("Github repo for %s service does not match regex ^[^/]+/[^/]+$", spec.Services[0].Name),
 	)
+}
+
+func (suite *AppSpecLintSuite) TestServiceInvalidGitLabSource() {
+	spec := validSpec()
+	svc := spec.Services[0]
+	svc.GitHub = nil
+	svc.GitLab = &godo.GitLabSourceSpec{
+		Repo: "renehernandez_appfile",
+	}
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 2)
+	suite.Equal(
+		errs[0].Error(),
+		fmt.Sprintf("GitLab branch for %s service cannot be empty", spec.Services[0].Name),
+	)
+	suite.Equal(
+		errs[1].Error(),
+		fmt.Sprintf("GitLab repo for %s service does not match regex ^[^/]+/[^/]+$", spec.Services[0].Name),
+	)
+}
+
+func (suite *AppSpecLintSuite) TestServiceInvalidGitSource() {
+	spec := validSpec()
+	svc := spec.Services[0]
+	svc.GitHub = nil
+	svc.Git = &godo.GitSourceSpec{}
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 2)
+	suite.Equal(
+		errs[0].Error(),
+		fmt.Sprintf("Git branch for %s service cannot be empty", spec.Services[0].Name),
+	)
+	suite.Equal(
+		errs[1].Error(),
+		fmt.Sprintf("Repo clone URL for %s service cannot be empty", spec.Services[0].Name),
+	)
+}
+
+func (suite *AppSpecLintSuite) TestServiceInvalidEmptyImageSource() {
+	spec := validSpecWithImageSource()
+	spec.Services[0].Image = &godo.ImageSourceSpec{}
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 2)
+	suite.Equal(
+		errs[0].Error(),
+		fmt.Sprintf("Image registry type for %s service is invalid", spec.Services[0].Name),
+	)
+	suite.Equal(
+		errs[1].Error(),
+		fmt.Sprintf("Image repository for %s service cannot be empty", spec.Services[0].Name),
+	)
+}
+
+func (suite *AppSpecLintSuite) TestServiceInvalidDOCRImageSource() {
+	spec := validSpecWithImageSource()
+	spec.Services[0].Image.Registry = "custom"
+	spec.Services[0].Image.Repository = ""
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 2)
+	suite.Equal(
+		errs[0].Error(),
+		fmt.Sprintf("Image registry for %s service of type %s must be empty",
+			spec.Services[0].Name,
+			RegistryTypes.DOCR,
+		),
+	)
+	suite.Equal(
+		errs[1].Error(),
+		fmt.Sprintf("Image repository for %s service cannot be empty", spec.Services[0].Name),
+	)
+}
+
+func (suite *AppSpecLintSuite) TestServiceInvalidDockerHubImageSource() {
+	spec := validSpecWithImageSource()
+	svc := spec.Services[0]
+	svc.Image.RegistryType = RegistryTypes.DOCKER_HUB
+	svc.Image.Registry = ""
+	svc.Image.Repository = ""
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 2)
+	suite.Equal(
+		errs[0].Error(),
+		fmt.Sprintf("Image registry for %s service of type %s cannot be empty",
+			svc.Name,
+			RegistryTypes.DOCKER_HUB,
+		),
+	)
+	suite.Equal(
+		errs[1].Error(),
+		fmt.Sprintf("Image repository for %s service cannot be empty", svc.Name),
+	)
+}
+
+func validSpecWithImageSource() *AppSpec {
+	spec := validSpec()
+	spec.Services[0].GitHub = nil
+	spec.Services[0].Image = &godo.ImageSourceSpec{
+		RegistryType: RegistryTypes.DOCR,
+		Repository:   "my_repository",
+	}
+
+	return spec
 }
 
 func validSpec() *AppSpec {

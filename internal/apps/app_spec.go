@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strings"
 
+	mapset "github.com/deckarep/golang-set"
 	"github.com/digitalocean/godo"
 	"github.com/renehernandez/appfile/internal/log"
 )
@@ -92,6 +93,9 @@ func (spec *AppSpec) setEnvVarsDefaults(envs []*godo.AppVariableDefinition) {
 		if envVar.Scope == "" {
 			envVar.Scope = "RUN_AND_BUILD_TIME"
 		}
+		if envVar.Type == "" {
+			envVar.Type = "GENERAL"
+		}
 	}
 }
 
@@ -103,6 +107,7 @@ type regexes struct {
 	Name   *regexp.Regexp
 	Domain *regexp.Regexp
 	Repo   *regexp.Regexp
+	EnvKey *regexp.Regexp
 }
 
 type registryTypes struct {
@@ -115,6 +120,7 @@ var (
 		Name:   regexp.MustCompile(`^[a-z][a-z0-9-]{0,30}[a-z0-9]$`),
 		Domain: regexp.MustCompile(`^((xn--)?[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}\.?$`),
 		Repo:   regexp.MustCompile(`^[^/]+/[^/]+$`),
+		EnvKey: regexp.MustCompile(`^[_A-Za-z][_A-Za-z0-9]*$`),
 	}
 
 	RegistryTypes = &registryTypes{
@@ -143,14 +149,21 @@ func (sv *specValidator) validateServices() []error {
 
 	for _, svc := range sv.Spec.Services {
 		errs = append(errs, sv.validateName(sv.Spec.Name, svc.Name, "Service")...)
+
 		errs = append(errs, (&sourceSpecValidator{
-			SpecName:  sv.Spec.Name,
 			Name:      svc.Name,
 			FieldType: "Service",
 			Git:       svc.Git,
 			GitHub:    svc.GitHub,
 			GitLab:    svc.GitLab,
 			Image:     svc.Image,
+		}).validate()...)
+
+		errs = append(errs, (&envsSpecValidator{
+			Name:      svc.Name,
+			FieldType: "Service",
+			Global:    false,
+			Envs:      svc.Envs,
 		}).validate()...)
 	}
 
@@ -174,7 +187,6 @@ func (sv *specValidator) validateName(specName string, name string, fieldType st
 }
 
 type sourceSpecValidator struct {
-	SpecName  string
 	Name      string
 	FieldType string
 	Git       *godo.GitSourceSpec
@@ -183,122 +195,160 @@ type sourceSpecValidator struct {
 	Image     *godo.ImageSourceSpec
 }
 
-func (sources *sourceSpecValidator) validate() []error {
+func (validator *sourceSpecValidator) validate() []error {
 	errs := []error{}
 	sourcesConfigured := 0
-	if sources.Git != nil {
+	if validator.Git != nil {
 		sourcesConfigured++
 	}
-	if sources.GitHub != nil {
+	if validator.GitHub != nil {
 		sourcesConfigured++
 	}
-	if sources.GitLab != nil {
+	if validator.GitLab != nil {
 		sourcesConfigured++
 	}
-	if sources.Image != nil {
+	if validator.Image != nil {
 		sourcesConfigured++
 	}
 
-	if sourcesConfigured == 0 {
+	if sourcesConfigured == 0 || sourcesConfigured > 1 {
 		errs = append(errs,
 			fmt.Errorf(
-				"%s source for %s must be one of git, github, gitlab or image",
-				sources.FieldType,
-				sources.Name,
-			),
-		)
-
-		return errs
-	} else if sourcesConfigured > 1 {
-		errs = append(errs,
-			fmt.Errorf(
-				"%s source for %s can only be one of git, github, gitlab or image",
-				sources.FieldType,
-				sources.Name,
+				"%s %s source must be exactly one of git, github, gitlab or image",
+				validator.FieldType,
+				validator.Name,
 			),
 		)
 
 		return errs
 	}
 
-	if sources.Git != nil {
-		if sources.Git.Branch == "" {
+	if validator.Git != nil {
+		if validator.Git.Branch == "" {
 			errs = append(errs, fmt.Errorf("Git branch for %s %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 			))
 		}
 
-		if sources.Git.RepoCloneURL == "" {
+		if validator.Git.RepoCloneURL == "" {
 			errs = append(errs, fmt.Errorf("Repo clone URL for %s %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 			))
 		}
 	}
 
-	if sources.GitHub != nil {
-		if sources.GitHub.Branch == "" {
+	if validator.GitHub != nil {
+		if validator.GitHub.Branch == "" {
 			errs = append(errs, fmt.Errorf("Github branch for %s %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 			))
 		}
 
-		if !SpecRegexes.Repo.MatchString(sources.GitHub.Repo) {
+		if !SpecRegexes.Repo.MatchString(validator.GitHub.Repo) {
 			errs = append(errs, fmt.Errorf("Github repo for %s %s does not match regex %s",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 				SpecRegexes.Repo,
 			))
 		}
 	}
 
-	if sources.GitLab != nil {
-		if sources.GitLab.Branch == "" {
+	if validator.GitLab != nil {
+		if validator.GitLab.Branch == "" {
 			errs = append(errs, fmt.Errorf("GitLab branch for %s %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 			))
 		}
 
-		if !SpecRegexes.Repo.MatchString(sources.GitLab.Repo) {
+		if !SpecRegexes.Repo.MatchString(validator.GitLab.Repo) {
 			errs = append(errs, fmt.Errorf("GitLab repo for %s %s does not match regex %s",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 				SpecRegexes.Repo,
 			))
 		}
 	}
 
-	if sources.Image != nil {
-		if sources.Image.RegistryType != RegistryTypes.DOCR && sources.Image.RegistryType != RegistryTypes.DOCKER_HUB {
+	if validator.Image != nil {
+		if validator.Image.RegistryType != RegistryTypes.DOCR && validator.Image.RegistryType != RegistryTypes.DOCKER_HUB {
 			errs = append(errs, fmt.Errorf("Image registry type for %s %s is invalid",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
 			))
 		}
 
-		if sources.Image.RegistryType == RegistryTypes.DOCR && sources.Image.Registry != "" {
+		if validator.Image.RegistryType == RegistryTypes.DOCR && validator.Image.Registry != "" {
 			errs = append(errs, fmt.Errorf("Image registry for %s %s of type %s must be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
-				sources.Image.RegistryType,
+				validator.Name,
+				strings.ToLower(validator.FieldType),
+				validator.Image.RegistryType,
 			))
 		}
 
-		if sources.Image.RegistryType == RegistryTypes.DOCKER_HUB && sources.Image.Registry == "" {
+		if validator.Image.RegistryType == RegistryTypes.DOCKER_HUB && validator.Image.Registry == "" {
 			errs = append(errs, fmt.Errorf("Image registry for %s %s of type %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
-				sources.Image.RegistryType,
+				validator.Name,
+				strings.ToLower(validator.FieldType),
+				validator.Image.RegistryType,
 			))
 		}
 
-		if sources.Image.Repository == "" {
+		if validator.Image.Repository == "" {
 			errs = append(errs, fmt.Errorf("Image repository for %s %s cannot be empty",
-				sources.Name,
-				strings.ToLower(sources.FieldType),
+				validator.Name,
+				strings.ToLower(validator.FieldType),
+			))
+		}
+	}
+
+	return errs
+}
+
+type envsSpecValidator struct {
+	Name      string
+	FieldType string
+	Global    bool
+	Envs      []*godo.AppVariableDefinition
+}
+
+func (validator *envsSpecValidator) validate() []error {
+	errs := []error{}
+	types := []interface{}{"GENERAL", "SECRET"}
+	allowedTypes := mapset.NewSetFromSlice(types)
+	scopes := []interface{}{"RUN_TIME", "BUILD_TIME", "RUN_AND_BUILD_TIME"}
+	allowedScopes := mapset.NewSetFromSlice(scopes)
+
+	prefixMsg := "Global env"
+	if !validator.Global {
+		prefixMsg = fmt.Sprintf("%s %s env", validator.FieldType, validator.Name)
+	}
+
+	for _, envDef := range validator.Envs {
+		if !SpecRegexes.EnvKey.MatchString(envDef.Key) {
+			errs = append(errs, fmt.Errorf("%s key %s does not match regex %s",
+				prefixMsg,
+				envDef.Key,
+				SpecRegexes.EnvKey,
+			))
+		}
+
+		if !allowedScopes.Contains(envDef.Scope) {
+			errs = append(errs, fmt.Errorf("%s scope '%s' is not valid. Must be one of %s",
+				prefixMsg,
+				envDef.Scope,
+				scopes,
+			))
+		}
+
+		if !allowedTypes.Contains(envDef.Type) {
+			errs = append(errs, fmt.Errorf("%s type '%s' is not valid. Must be one of %s",
+				prefixMsg,
+				envDef.Type,
+				types,
 			))
 		}
 	}

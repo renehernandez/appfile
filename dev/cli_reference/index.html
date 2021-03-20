@@ -459,11 +459,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#appfile-status" class="md-nav__link">
-    appfile status
+  <a href="#appfile-lint" class="md-nav__link">
+    appfile lint
   </a>
   
-    <nav class="md-nav" aria-label="appfile status">
+    <nav class="md-nav" aria-label="appfile lint">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -500,11 +500,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#appfile-sync" class="md-nav__link">
-    appfile sync
+  <a href="#appfile-status" class="md-nav__link">
+    appfile status
   </a>
   
-    <nav class="md-nav" aria-label="appfile sync">
+    <nav class="md-nav" aria-label="appfile status">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -530,6 +530,47 @@
         
           <li class="md-nav__item">
   <a href="#options-inherited-from-parent-commands_4" class="md-nav__link">
+    Options inherited from parent commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appfile-sync" class="md-nav__link">
+    appfile sync
+  </a>
+  
+    <nav class="md-nav" aria-label="appfile sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synopsis_5" class="md-nav__link">
+    Synopsis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options_6" class="md-nav__link">
+    Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-inherited-from-parent-commands_5" class="md-nav__link">
     Options inherited from parent commands
   </a>
   
@@ -804,11 +845,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#appfile-status" class="md-nav__link">
-    appfile status
+  <a href="#appfile-lint" class="md-nav__link">
+    appfile lint
   </a>
   
-    <nav class="md-nav" aria-label="appfile status">
+    <nav class="md-nav" aria-label="appfile lint">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -845,11 +886,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#appfile-sync" class="md-nav__link">
-    appfile sync
+  <a href="#appfile-status" class="md-nav__link">
+    appfile status
   </a>
   
-    <nav class="md-nav" aria-label="appfile sync">
+    <nav class="md-nav" aria-label="appfile status">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -875,6 +916,47 @@
         
           <li class="md-nav__item">
   <a href="#options-inherited-from-parent-commands_4" class="md-nav__link">
+    Options inherited from parent commands
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appfile-sync" class="md-nav__link">
+    appfile sync
+  </a>
+  
+    <nav class="md-nav" aria-label="appfile sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synopsis_5" class="md-nav__link">
+    Synopsis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options_6" class="md-nav__link">
+    Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options-inherited-from-parent-commands_5" class="md-nav__link">
     Options inherited from parent commands
   </a>
   
@@ -917,6 +999,10 @@
 <tr>
 <td><a href="#appfile-diff">diff</a></td>
 <td>Diff local app spec against app spec running in DigitalOcean</td>
+</tr>
+<tr>
+<td><a href="#appfile-lint">lint</a></td>
+<td>Lint the apps definitions against the App Specification Reference</td>
 </tr>
 <tr>
 <td><a href="#appfile-status">status</a></td>
@@ -1004,13 +1090,40 @@ Simply type appfile help [path to command] for full details.</p>
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
       --log-level string      Set log level (default &quot;info&quot;)
 </code></pre>
+<h2 id="appfile-lint">appfile lint<a class="headerlink" href="#appfile-lint" title="Permanent link">&para;</a></h2>
+<p>Lint the apps definitions against the App Specification Reference</p>
+<h3 id="synopsis_3">Synopsis<a class="headerlink" href="#synopsis_3" title="Permanent link">&para;</a></h3>
+<p>Lint the apps specifications against the App Specification Reference.</p>
+<pre><code>For more details, check the Reference at https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
+</code></pre>
+<pre><code>appfile lint [flags]
+</code></pre>
+<h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h3>
+<pre><code>  # Lint using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
+appfile lint
+
+  # Lint using appfile.yaml in custom location, review environment and access token option
+  appfile lint --file /path/to/appfile.yaml --environment review --access-token $TOKEN
+
+  # Lint with debug output
+  appfile lint --log-level debug
+</code></pre>
+<h3 id="options_4">Options<a class="headerlink" href="#options_4" title="Permanent link">&para;</a></h3>
+<pre><code>  -h, --help   help for lint
+</code></pre>
+<h3 id="options-inherited-from-parent-commands_3">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_3" title="Permanent link">&para;</a></h3>
+<pre><code>  -t, --access-token string   API V2 access token
+  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+  -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
+      --log-level string      Set log level (default &quot;info&quot;)
+</code></pre>
 <h2 id="appfile-status">appfile status<a class="headerlink" href="#appfile-status" title="Permanent link">&para;</a></h2>
 <p>Show status for apps defined in the appfile</p>
-<h3 id="synopsis_3">Synopsis<a class="headerlink" href="#synopsis_3" title="Permanent link">&para;</a></h3>
+<h3 id="synopsis_4">Synopsis<a class="headerlink" href="#synopsis_4" title="Permanent link">&para;</a></h3>
 <p>Show status for apps defined in the appfile.</p>
 <pre><code>appfile status [flags]
 </code></pre>
-<h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h3>
+<h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
 <pre><code>  # Status using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
 appfile status
 
@@ -1020,10 +1133,10 @@ appfile status
   # Status with debug output
   appfile status --log-level debug
 </code></pre>
-<h3 id="options_4">Options<a class="headerlink" href="#options_4" title="Permanent link">&para;</a></h3>
+<h3 id="options_5">Options<a class="headerlink" href="#options_5" title="Permanent link">&para;</a></h3>
 <pre><code>  -h, --help   help for status
 </code></pre>
-<h3 id="options-inherited-from-parent-commands_3">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_3" title="Permanent link">&para;</a></h3>
+<h3 id="options-inherited-from-parent-commands_4">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_4" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
   -e, --environment string    root all resources from spec file (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
@@ -1031,13 +1144,13 @@ appfile status
 </code></pre>
 <h2 id="appfile-sync">appfile sync<a class="headerlink" href="#appfile-sync" title="Permanent link">&para;</a></h2>
 <p>Sync all resources from app platform specs to DigitalOcean</p>
-<h3 id="synopsis_4">Synopsis<a class="headerlink" href="#synopsis_4" title="Permanent link">&para;</a></h3>
+<h3 id="synopsis_5">Synopsis<a class="headerlink" href="#synopsis_5" title="Permanent link">&para;</a></h3>
 <p>Sync all resources from app platform specs to DigitalOcean</p>
 <p>If there is no app with the existing name, a new app will be create.<br />
 Otherwise the existing app will be updated with the changes in the spec.</p>
 <pre><code>appfile sync [flags]
 </code></pre>
-<h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
+<h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h3>
 <pre><code>  # Sync using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
 appfile sync
 
@@ -1047,10 +1160,10 @@ appfile sync
   # Sync with debug output
   appfile sync --log-level debug
 </code></pre>
-<h3 id="options_5">Options<a class="headerlink" href="#options_5" title="Permanent link">&para;</a></h3>
+<h3 id="options_6">Options<a class="headerlink" href="#options_6" title="Permanent link">&para;</a></h3>
 <pre><code>  -h, --help   help for sync
 </code></pre>
-<h3 id="options-inherited-from-parent-commands_4">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_4" title="Permanent link">&para;</a></h3>
+<h3 id="options-inherited-from-parent-commands_5">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_5" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
   -e, --environment string    root all resources from spec file (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)

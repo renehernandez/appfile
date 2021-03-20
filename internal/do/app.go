@@ -50,6 +50,17 @@ func (svc *AppService) ListApps() ([]*godo.App, error) {
 	return list, nil
 }
 
+func (svc *AppService) ListInstancesSizes() ([]*godo.AppInstanceSize, error) {
+	ctx := context.TODO()
+
+	sizes, _, err := svc.client.Apps.ListInstanceSizes(ctx)
+	if err != nil {
+		return []*godo.AppInstanceSize{}, err
+	}
+
+	return sizes, nil
+}
+
 func (svc *AppService) FindByName(appName string) (*godo.App, error) {
 	apps, err := svc.ListApps()
 	if err != nil {

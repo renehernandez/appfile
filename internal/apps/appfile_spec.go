@@ -90,6 +90,7 @@ func (spec *AppfileSpec) loadAppSpecs(state *StateData) ([]*AppSpec, error) {
 			return []*AppSpec{}, errors.Wrapf(err, "Could not parse resulting yaml for app spec from file %s", file)
 		}
 
+		appSpec.FileName = filepath.Base(file)
 		appSpec.SetDefaultValues()
 
 		appSpecs = append(appSpecs, appSpec)

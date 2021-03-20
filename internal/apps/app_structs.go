@@ -66,6 +66,7 @@ const (
 )
 
 type AppLint struct {
-	Name   string
-	Errors []error
+	FileName string
+	Name     string
+	Errors   []error
 }

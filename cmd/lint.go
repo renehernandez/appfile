@@ -15,14 +15,14 @@ var (
 
 	For more details, check the Reference at https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
 `
-	lintExample = `  # Status using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
-appfile status
+	lintExample = `  # Lint using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
+appfile lint
 
-  # Status using appfile.yaml in custom location, review environment and access token option
-  appfile status --file /path/to/appfile.yaml --environment review --access-token $TOKEN
+  # Lint using appfile.yaml in custom location, review environment and access token option
+  appfile lint --file /path/to/appfile.yaml --environment review --access-token $TOKEN
 
-  # Status with debug output
-  appfile status --log-level debug`
+  # Lint with debug output
+  appfile lint --log-level debug`
 )
 
 func newLintCmd(rootCmd *rootCmd) *cobra.Command {
@@ -50,10 +50,10 @@ func (lint *lintCmd) run() {
 
 	for _, lint := range lints {
 		if len(lint.Errors) == 0 {
-			log.Infof("[%s] lint ran successfully", lint.Name)
+			log.Infof("[%s] lint ran successfully", lint.FileName)
 		} else {
 			for _, err := range lint.Errors {
-				log.Errorln(err)
+				log.Errorf("[%s] %s", lint.FileName, err)
 			}
 		}
 	}

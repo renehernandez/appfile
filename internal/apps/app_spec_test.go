@@ -260,6 +260,36 @@ func (suite *ServiceSpecLintSuite) TestInvalidEnvs() {
 	)
 }
 
+func (suite *ServiceSpecLintSuite) TestInvalidSizeSlugService() {
+	spec := validSpec()
+	svc := spec.Services[0]
+	svc.InstanceSizeSlug = "hello"
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 1)
+}
+
+func (suite *ServiceSpecLintSuite) TestInvalidSizeSlugWorker() {
+	spec := validSpec()
+	worker := spec.Workers[0]
+	worker.InstanceSizeSlug = "hello"
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 1)
+}
+
+func (suite *ServiceSpecLintSuite) TestInvalidSizeSlugJob() {
+	spec := validSpec()
+	job := spec.Jobs[0]
+	job.InstanceSizeSlug = "hello"
+
+	errs := spec.Validate()
+
+	suite.Len(errs, 1)
+}
+
 func validSpecWithImageSource() *AppSpec {
 	spec := validSpec()
 	spec.Services[0].GitHub = nil
@@ -281,9 +311,31 @@ func validSpec() *AppSpec {
 			Branch: "main",
 		},
 	}
+	worker := &godo.AppWorkerSpec{
+		Name: "hello-world-svc",
+		GitHub: &godo.GitHubSourceSpec{
+			Repo:   "renehernandez/appfile",
+			Branch: "main",
+		},
+	}
+	job := &godo.AppJobSpec{
+		Name: "hello-world-svc",
+		GitHub: &godo.GitHubSourceSpec{
+			Repo:   "renehernandez/appfile",
+			Branch: "main",
+		},
+	}
 	spec.Services = []*godo.AppServiceSpec{
 		svc,
 	}
+	spec.Workers = []*godo.AppWorkerSpec{
+		worker,
+	}
+	spec.Jobs = []*godo.AppJobSpec{
+		job,
+	}
+
+	spec.SetDefaultValues()
 
 	return spec
 }

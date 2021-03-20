@@ -210,8 +210,9 @@ func (appfile *Appfile) Lint() ([]AppLint, error) {
 
 	for _, appSpec := range appfile.AppSpecs {
 		lint := AppLint{
-			Name:   appSpec.Name,
-			Errors: appSpec.Validate(),
+			Name:     appSpec.Name,
+			FileName: appSpec.FileName,
+			Errors:   appSpec.Validate(),
 		}
 
 		lints = append(lints, lint)

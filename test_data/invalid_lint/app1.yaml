@@ -1,0 +1,11 @@
+name: "hello"
+
+services:
+  - name: test
+    image:
+      registry_type: DOCKER_HUB
+      registry: 
+      repository: myrepo
+      tag: latest
+    instance_count: 0
+

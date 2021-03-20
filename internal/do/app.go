@@ -50,6 +50,17 @@ func (svc *AppService) ListApps() ([]*godo.App, error) {
 	return list, nil
 }
 
+func (svc *AppService) ListInstancesSizes() ([]*godo.AppInstanceSize, error) {
+	ctx := context.TODO()
+
+	sizes, _, err := svc.client.Apps.ListInstanceSizes(ctx)
+	if err != nil {
+		return []*godo.AppInstanceSize{}, err
+	}
+
+	return sizes, nil
+}
+
 func (svc *AppService) FindByName(appName string) (*godo.App, error) {
 	apps, err := svc.ListApps()
 	if err != nil {
@@ -94,8 +105,23 @@ func (svc *AppService) Destroy(app *godo.App) error {
 
 	_, err := svc.client.Apps.Delete(ctx, app.ID)
 	if err != nil {
-		return errors.Wrapf(err, "Failed to update app from spec %s", app.Spec.Name)
+		return errors.Wrapf(err, "Failed to delete app %s", app.Spec.Name)
 	}
 
 	return nil
+}
+
+func (svc *AppService) Propose(app *godo.App) error {
+	ctx := context.TODO()
+	request := &godo.AppProposeRequest{
+		Spec: app.Spec,
+	}
+
+	if app.ID != "" {
+		request.AppID = app.ID
+	}
+
+	_, _, err := svc.client.Apps.Propose(ctx, request)
+
+	return err
 }

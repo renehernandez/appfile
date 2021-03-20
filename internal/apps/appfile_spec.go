@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/digitalocean/godo"
 	"github.com/pkg/errors"
 	"github.com/renehernandez/appfile/internal/env"
 	"github.com/renehernandez/appfile/internal/log"
@@ -74,27 +73,28 @@ func (spec *AppfileSpec) ReadEnvironment(name string) (*env.Environment, error) 
 	return fullEnv, nil
 }
 
-func (spec *AppfileSpec) readApps(state *StateData) ([]*godo.App, error) {
-	apps := []*godo.App{}
+func (spec *AppfileSpec) loadAppSpecs(state *StateData) ([]*AppSpec, error) {
+	appSpecs := []*AppSpec{}
 
 	for _, appSpecPath := range spec.AppSpecs {
 		file := filepath.Join(filepath.Dir(spec.Path()), appSpecPath)
 		log.Debugf("Reading app spec from %s", file)
 		templatedYaml, err := tmpl.RenderFromFile(file, state)
 		if err != nil {
-			return []*godo.App{}, err
+			return []*AppSpec{}, err
 		}
 
-		var appSpec AppSpec
-		err = yaml.ParseAppSpec(templatedYaml, &appSpec)
+		appSpec := NewAppSpec()
+		err = yaml.ParseAppSpec(templatedYaml, appSpec)
 		if err != nil {
-			return []*godo.App{}, errors.Wrapf(err, "Could not parse resulting yaml for app spec from file %s", file)
+			return []*AppSpec{}, errors.Wrapf(err, "Could not parse resulting yaml for app spec from file %s", file)
 		}
 
+		appSpec.FileName = filepath.Base(file)
 		appSpec.SetDefaultValues()
 
-		apps = append(apps, &godo.App{Spec: &appSpec.AppSpec})
+		appSpecs = append(appSpecs, appSpec)
 	}
 
-	return apps, nil
+	return appSpecs, nil
 }

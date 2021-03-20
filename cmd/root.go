@@ -55,6 +55,7 @@ func NewRootCmd() *cobra.Command {
 	cmd.AddCommand(newSyncCmd(&root))
 	cmd.AddCommand(newDestroyCmd(&root))
 	cmd.AddCommand(newStatusCmd(&root))
+	cmd.AddCommand(newLintCmd(&root))
 
 	return cmd
 }
@@ -93,17 +94,17 @@ func (root *rootCmd) appfileFromSpec() *apps.Appfile {
 		log.Debugf("Could not parse appfile specification from file %s", root.File())
 		log.Debugf("Try parsing app specification instead")
 
-		var appSpec apps.AppSpec
+		appSpec := apps.NewAppSpec()
 		err = yaml.ParseAppSpec(templatedYaml, &appSpec)
 		errors.CheckAndFailf(err, "Could parse app specification from file %s", root.File())
 
-		appfile, err = apps.NewAppfileFromAppSpec(&appSpec)
+		appfile, err = apps.NewAppfileFromAppSpec(appSpec, root.AccessToken())
 	} else {
 		err = spec.SetPath(root.File())
 		errors.CheckAndFailf(err, "Could not generate absolute path for file %s", root.File())
 		log.Debugln("Finished reading appfile spec")
 
-		appfile, err = apps.NewAppfileFromSpec(&spec, root.Environment())
+		appfile, err = apps.NewAppfileFromSpec(&spec, root.Environment(), root.AccessToken())
 	}
 
 	errors.CheckAndFail(err)

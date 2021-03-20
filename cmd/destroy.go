@@ -45,6 +45,6 @@ func newDestroyCmd(rootCmd *rootCmd) *cobra.Command {
 func (destroy *destroyCmd) run() {
 	appfile := destroy.appfileFromSpec()
 
-	err := appfile.Destroy(destroy.accessToken)
+	err := appfile.Destroy()
 	errors.CheckAndFail(err)
 }

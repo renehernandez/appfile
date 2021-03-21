@@ -13,8 +13,8 @@ var (
 	destroyLong = `Destroy apps running in DigitalOcean
 
 It fails without deleting any app if any of the apps declared in the appfile spec is not found in DigitalOcean
-
 `
+
 	destroyExample = `  # Destroy using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
 appfile destroy
 

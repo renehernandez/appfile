@@ -13,8 +13,9 @@ type lintCmd struct {
 var (
 	lintLong = `Lint the apps specifications against the App Specification Reference.
 
-	For more details, check the Reference at https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
+For more details, check the Reference at https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
 `
+
 	lintExample = `  # Lint using defaults: appfile.yaml in current location, default environment and DIGITALOCEAN_ACCESS_TOKEN env var
 appfile lint
 

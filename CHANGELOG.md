@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.0.8](https://github.com/renehernandez/appfile/tree/v0.0.8) (2021-03-21)
+
+**Implemented enhancements:**
+
+- Add lint command [\#21](https://github.com/renehernandez/appfile/issues/21)
+
+**Merged pull requests:**
+
+- Initial implementation for lint cmd [\#35](https://github.com/renehernandez/appfile/pull/35)
+
 ## [v0.0.7](https://github.com/renehernandez/appfile/tree/v0.0.7) (2020-12-14)
 
 **Fixed bugs:**

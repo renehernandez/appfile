@@ -1,9 +1,12 @@
 name: Release Brew
 
 on:
-  release:
-    types:
-      - created
+  push:
+    branches:
+      - main
+  # release:
+  #   types:
+  #     - created
 
 jobs:
   update_formula_version:
@@ -25,33 +28,35 @@ jobs:
     steps:
       - name: Remove default go in path
         run: |
+          ls -al /usr/local/bin/go*
           rm /usr/local/bin/go
+          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps
           brew install --build-bottle --verbose appfile
           brew bottle appfile
-      - id: normalize_tag
-        run: |
-          full_tag=${{ github.event.release.tag_name }}
-          tag="${full_tag#?}"
-          echo "::set-output name=tag::$tag"
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
-          asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
-          asset_content_type: application/gzip
-      - uses: NSHipster/update-homebrew-formula-action@main
-        with:
-          repository: renehernandez/appfile
-          tap: renehernandez/homebrew-taps
-          formula: Formula/appfile.rb
-          message: |
-              Add bottles for appfile ${{ github.event.release.tag_name }}
-              on macOS 10.15 (Catalina)
+      # - id: normalize_tag
+      #   run: |
+      #     full_tag=${{ github.event.release.tag_name }}
+      #     tag="${full_tag#?}"
+      #     echo "::set-output name=tag::$tag"
+      # - uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ github.event.release.upload_url }}
+      #     asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+      #     asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+      #     asset_content_type: application/gzip
+      # - uses: NSHipster/update-homebrew-formula-action@main
+      #   with:
+      #     repository: renehernandez/appfile
+      #     tap: renehernandez/homebrew-taps
+      #     formula: Formula/appfile.rb
+      #     message: |
+      #         Add bottles for appfile ${{ github.event.release.tag_name }}
+      #         on macOS 10.15 (Catalina)
 
   bottle_macos_big_sur:
     name: Build and distribute Homebrew bottle for macOS Big Sur
@@ -60,32 +65,34 @@ jobs:
     steps:
       - name: Remove default go in path
         run: |
+          ls -al /usr/local/bin/go*
           rm /usr/local/bin/go
+          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps
           brew install --build-bottle --verbose appfile --ignore-dependencies
           brew bottle appfile
-      - id: normalize_tag
-        run: |
-          full_tag=${{ github.event.release.tag_name }}
-          tag="${full_tag#?}"
-          echo "::set-output name=tag::$tag"
-      - uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
-          asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
-          asset_content_type: application/gzip
-      - uses: NSHipster/update-homebrew-formula-action@main
-        with:
-          repository: renehernandez/appfile
-          tap: renehernandez/homebrew-taps
-          formula: Formula/appfile.rb
-          message: |
-              Add bottles for appfile ${{ github.event.release.tag_name }}
-              on macOS 11.0 (Big Sur)
-        env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
+      # - id: normalize_tag
+      #   run: |
+      #     full_tag=${{ github.event.release.tag_name }}
+      #     tag="${full_tag#?}"
+      #     echo "::set-output name=tag::$tag"
+      # # - uses: actions/upload-release-asset@v1.0.1
+      # #   env:
+      # #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # #   with:
+      # #     upload_url: ${{ github.event.release.upload_url }}
+      # #     asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
+      # #     asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.big_sur.bottle.tar.gz
+      # #     asset_content_type: application/gzip
+      # # - uses: NSHipster/update-homebrew-formula-action@main
+      # #   with:
+      # #     repository: renehernandez/appfile
+      # #     tap: renehernandez/homebrew-taps
+      # #     formula: Formula/appfile.rb
+      # #     message: |
+      # #         Add bottles for appfile ${{ github.event.release.tag_name }}
+      # #         on macOS 11.0 (Big Sur)
+      # #   env:
+      # #     GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}

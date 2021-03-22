@@ -23,14 +23,10 @@ jobs:
     runs-on: macos-10.15
     needs: [update_formula_version]
     steps:
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '1.16'
       - name: Build a bottle using Homebrew
         run: |
-          brew unlink go@1.15
           brew tap renehernandez/taps
-          brew install --build-bottle --verbose appfile
+          brew install --build-bottle --verbose appfile --ignore-dependencies
           brew bottle appfile
       - id: normalize_tag
         run: |
@@ -51,14 +47,10 @@ jobs:
     runs-on: macos-11.0
     needs: [update_formula_version]
     steps:
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '1.16'
       - name: Build a bottle using Homebrew
         run: |
-          brew unlink go@1.15
           brew tap renehernandez/taps
-          brew install --build-bottle --verbose appfile
+          brew install --build-bottle --verbose appfile --ignore-dependencies
           brew bottle appfile
       - id: normalize_tag
         run: |

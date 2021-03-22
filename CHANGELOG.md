@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.0.8](https://github.com/renehernandez/appfile/tree/v0.0.8) (2021-03-21)
+## [v0.0.8](https://github.com/renehernandez/appfile/tree/v0.0.8) (2021-03-22)
 
 **Implemented enhancements:**
 

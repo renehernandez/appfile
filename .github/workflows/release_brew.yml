@@ -28,8 +28,10 @@ jobs:
     steps:
       - name: Remove default go in path
         run: |
-          brew unlink go
           ls -al /usr/local/bin/go*
+          brew unlink go@1.15
+          rm /usr/local/bin/go
+          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps
@@ -64,8 +66,10 @@ jobs:
     steps:
       - name: Remove default go in path
         run: |
-          brew unlink go
           ls -al /usr/local/bin/go*
+          brew unlink go@1.15
+          rm /usr/local/bin/go
+          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps

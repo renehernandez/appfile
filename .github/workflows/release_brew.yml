@@ -1,28 +1,27 @@
 name: Release Brew
 
 on:
-  push:
-  # release:
-  #   types:
-  #     - created
+  release:
+    types:
+      - created
 
 jobs:
-  # update_formula_version:
-  #   name: Update Homebrew formula
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: NSHipster/update-homebrew-formula-action@main
-  #       with:
-  #         repository: renehernandez/appfile
-  #         tap: renehernandez/homebrew-taps
-  #         formula: Formula/appfile.rb
-  #       env:
-  #         GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
+  update_formula_version:
+    name: Update Homebrew formula
+    runs-on: ubuntu-latest
+    steps:
+      - uses: NSHipster/update-homebrew-formula-action@main
+        with:
+          repository: renehernandez/appfile
+          tap: renehernandez/homebrew-taps
+          formula: Formula/appfile.rb
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.APPFILE_BREW_TOKEN }}
 
   bottle_macos_catalina:
     name: Build and distribute Homebrew bottle for macOS Catalina
     runs-on: macos-10.15
-    # needs: [update_formula_version]
+    needs: [update_formula_version]
     steps:
       - name: Remove default go in path
         run: |
@@ -35,44 +34,44 @@ jobs:
           brew tap renehernandez/taps
           brew install --build-bottle --verbose appfile
           brew bottle appfile
-      # - id: normalize_tag
-      #   run: |
-      #     full_tag=${{ github.event.release.tag_name }}
-      #     tag="${full_tag#?}"
-      #     echo "::set-output name=tag::$tag"
-      # - uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ github.event.release.upload_url }}
-      #     asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
-      #     asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
-      #     asset_content_type: application/gzip
-      # - uses: NSHipster/update-homebrew-formula-action@main
-      #   with:
-      #     repository: renehernandez/appfile
-      #     tap: renehernandez/homebrew-taps
-      #     formula: Formula/appfile.rb
-      #     message: |
-      #         Add bottles for appfile ${{ github.event.release.tag_name }}
-      #         on macOS 10.15 (Catalina)
+      - id: normalize_tag
+        run: |
+          full_tag=${{ github.event.release.tag_name }}
+          tag="${full_tag#?}"
+          echo "::set-output name=tag::$tag"
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+          asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+          asset_content_type: application/gzip
+      - uses: NSHipster/update-homebrew-formula-action@main
+        with:
+          repository: renehernandez/appfile
+          tap: renehernandez/homebrew-taps
+          formula: Formula/appfile.rb
+          message: |
+              Add bottles for appfile ${{ github.event.release.tag_name }}
+              on macOS 10.15 (Catalina)
 
-  bottle_macos_big_sur:
-    name: Build and distribute Homebrew bottle for macOS Big Sur
-    runs-on: macos-11.0
-    # needs: [update_formula_version]
-    steps:
-      - name: Remove default go in path
-        run: |
-          ls -al /usr/local/bin/go*
-          brew unlink go@1.15
-          rm /usr/local/bin/go
-          rm /usr/local/bin/gofmt
-      - name: Build a bottle using Homebrew
-        run: |
-          brew tap renehernandez/taps
-          brew install --build-bottle --verbose appfile --ignore-dependencies
-          brew bottle appfile
+  # bottle_macos_big_sur:
+  #   name: Build and distribute Homebrew bottle for macOS Big Sur
+  #   runs-on: macos-11.0
+  #   # needs: [update_formula_version]
+  #   steps:
+  #     - name: Remove default go in path
+  #       run: |
+  #         ls -al /usr/local/bin/go*
+  #         brew unlink go@1.15
+  #         rm /usr/local/bin/go
+  #         rm /usr/local/bin/gofmt
+  #     - name: Build a bottle using Homebrew
+  #       run: |
+  #         brew tap renehernandez/taps
+  #         brew install --build-bottle --verbose appfile --ignore-dependencies
+  #         brew bottle appfile
       # - id: normalize_tag
       #   run: |
       #     full_tag=${{ github.event.release.tag_name }}

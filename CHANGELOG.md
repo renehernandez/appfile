@@ -10,6 +10,10 @@
 
 - Fix bottle process [\#42](https://github.com/renehernandez/appfile/pull/42)
 
+**Documentation:**
+
+- General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
+
 **Merged pull requests:**
 
 - Initial implementation for lint cmd [\#35](https://github.com/renehernandez/appfile/pull/35)
@@ -37,7 +41,6 @@
 **Documentation:**
 
 - Add redirect generation [\#32](https://github.com/renehernandez/appfile/pull/32)
-- General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
 
 ## [v0.0.5](https://github.com/renehernandez/appfile/tree/v0.0.5) (2020-12-12)
 
@@ -65,10 +68,6 @@
 
 - Add homebrew automated formulae update [\#14](https://github.com/renehernandez/appfile/pull/14)
 
-**Fixed bugs:**
-
-- Fix hostname successfully deleted message being shown when domain wasn't found [\#12](https://github.com/renehernandez/appfile/pull/12)
-
 **Documentation:**
 
 - Update installation section in Readme [\#15](https://github.com/renehernandez/appfile/pull/15)
@@ -84,6 +83,10 @@
 - Print hostname when app is deployed [\#10](https://github.com/renehernandez/appfile/issues/10)
 - Default values for scope, instance\_size\_slug, instance\_count and kind fields [\#13](https://github.com/renehernandez/appfile/pull/13)
 - Print hostname per app after sync operation [\#11](https://github.com/renehernandez/appfile/pull/11)
+
+**Fixed bugs:**
+
+- Fix hostname successfully deleted message being shown when domain wasn't found [\#12](https://github.com/renehernandez/appfile/pull/12)
 
 ## [v0.0.2](https://github.com/renehernandez/appfile/tree/v0.0.2) (2020-11-23)
 

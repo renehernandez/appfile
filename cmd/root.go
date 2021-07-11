@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/renehernandez/appfile/internal/apps"
 	"github.com/renehernandez/appfile/internal/errors"
 	"github.com/renehernandez/appfile/internal/log"
@@ -12,11 +14,28 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type loadEnvVarsError struct {
+	message string
+}
+
+func (error loadEnvVarsError) Error() string {
+	return error.message
+}
+
+type configureAccessTokenError struct {
+	message string
+}
+
+func (error configureAccessTokenError) Error() string {
+	return error.message
+}
+
 type rootCmd struct {
 	environment string
 	file        string
 	logLevel    string
 	accessToken string
+	envFile     string
 }
 
 func (root *rootCmd) Environment() string {
@@ -43,14 +62,20 @@ func NewRootCmd() *cobra.Command {
 		Short:   "Deploy app platform specifications to DigitalOcean",
 		Version: version.Version,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			root.initialize(cmd)
+			if cmd.Name() == "help" {
+				return
+			}
+			if err := root.initialize(); err != nil {
+				log.Fatalln(err.Error())
+			}
 		},
 	}
 
-	cmd.PersistentFlags().StringVarP(&root.environment, "environment", "e", "default", "root all resources from spec file")
+	cmd.PersistentFlags().StringVarP(&root.environment, "environment", "e", "default", "specify the environment name")
 	cmd.PersistentFlags().StringVarP(&root.file, "file", "f", "appfile.yaml", "load appfile spec from file")
-	cmd.PersistentFlags().StringVar(&root.logLevel, "log-level", "info", "Set log level")
+	cmd.PersistentFlags().StringVar(&root.logLevel, "log-level", "info", "set log level")
 	cmd.PersistentFlags().StringVarP(&root.accessToken, "access-token", "t", "", "API V2 access token")
+	cmd.PersistentFlags().StringVar(&root.envFile, "env-file", ".env", "path to env file")
 	cmd.AddCommand(newDiffCmd(&root))
 	cmd.AddCommand(newSyncCmd(&root))
 	cmd.AddCommand(newDestroyCmd(&root))
@@ -60,21 +85,39 @@ func NewRootCmd() *cobra.Command {
 	return cmd
 }
 
-func (root *rootCmd) initialize(cmd *cobra.Command) {
+func (root *rootCmd) initialize() error {
 	log.Initialize(root.LogLevel())
 
-	if cmd.Name() == "help" {
-		return
+	if err := root.loadEnvVars(); err != nil {
+		log.Debugln(err.Error())
 	}
 
+	return root.verifyAccessToken()
+}
+
+func (root *rootCmd) loadEnvVars() error {
+	if err := godotenv.Load(root.envFile); err != nil {
+		return loadEnvVarsError{
+			message: fmt.Sprintf("Unable to load env file at %s. Error: %s", root.envFile, err),
+		}
+	}
+
+	return nil
+}
+
+func (root *rootCmd) verifyAccessToken() error {
 	if root.AccessToken() == "" {
 		token, ok := os.LookupEnv("DIGITALOCEAN_ACCESS_TOKEN")
 		if !ok || token == "" {
-			log.Fatalf("No access token option specified and DIGITALOCEAN_ACCESS_TOKEN environment variable is not defined")
+			return &configureAccessTokenError{
+				message: "No access token option specified and DIGITALOCEAN_ACCESS_TOKEN environment variable is not defined",
+			}
 		}
 
 		root.accessToken = token
 	}
+
+	return nil
 }
 
 func (root *rootCmd) logOptions(cmd *cobra.Command) {
@@ -96,7 +139,7 @@ func (root *rootCmd) appfileFromSpec() *apps.Appfile {
 
 		appSpec := apps.NewAppSpec()
 		err = yaml.ParseAppSpec(templatedYaml, &appSpec)
-		errors.CheckAndFailf(err, "Could parse app specification from file %s", root.File())
+		errors.CheckAndFailf(err, "Could not parse app specification from file %s", root.File())
 
 		appfile, err = apps.NewAppfileFromAppSpec(appSpec, root.AccessToken())
 	} else {

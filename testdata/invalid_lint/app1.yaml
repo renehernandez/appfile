@@ -4,7 +4,7 @@ services:
   - name: test
     image:
       registry_type: DOCKER_HUB
-      registry: 
+      registry:
       repository: myrepo
       tag: latest
     instance_count: 0

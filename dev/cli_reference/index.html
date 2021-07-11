@@ -1018,10 +1018,11 @@
 <p>Deploy app platform specifications to DigitalOcean</p>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
   -h, --help                  help for appfile
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-destroy">appfile destroy<a class="headerlink" href="#appfile-destroy" title="Permanent link">&para;</a></h2>
 <p>Destroy apps running in DigitalOcean</p>
@@ -1045,9 +1046,10 @@ appfile destroy
 </code></pre>
 <h3 id="options-inherited-from-parent-commands">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-diff">appfile diff<a class="headerlink" href="#appfile-diff" title="Permanent link">&para;</a></h2>
 <p>Diff local app spec against app spec running in DigitalOcean</p>
@@ -1070,9 +1072,10 @@ appfile diff
 </code></pre>
 <h3 id="options-inherited-from-parent-commands_1">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_1" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-help">appfile help<a class="headerlink" href="#appfile-help" title="Permanent link">&para;</a></h2>
 <p>Help about any command</p>
@@ -1086,9 +1089,10 @@ Simply type appfile help [path to command] for full details.</p>
 </code></pre>
 <h3 id="options-inherited-from-parent-commands_2">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_2" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-lint">appfile lint<a class="headerlink" href="#appfile-lint" title="Permanent link">&para;</a></h2>
 <p>Lint the apps definitions against the App Specification Reference</p>
@@ -1112,9 +1116,10 @@ appfile lint
 </code></pre>
 <h3 id="options-inherited-from-parent-commands_3">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_3" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-status">appfile status<a class="headerlink" href="#appfile-status" title="Permanent link">&para;</a></h2>
 <p>Show status for apps defined in the appfile</p>
@@ -1137,9 +1142,10 @@ appfile status
 </code></pre>
 <h3 id="options-inherited-from-parent-commands_4">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_4" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
 <h2 id="appfile-sync">appfile sync<a class="headerlink" href="#appfile-sync" title="Permanent link">&para;</a></h2>
 <p>Sync all resources from app platform specs to DigitalOcean</p>
@@ -1164,9 +1170,10 @@ appfile sync
 </code></pre>
 <h3 id="options-inherited-from-parent-commands_5">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands_5" title="Permanent link">&para;</a></h3>
 <pre><code>  -t, --access-token string   API V2 access token
-  -e, --environment string    root all resources from spec file (default &quot;default&quot;)
+      --env-file string       path to env file (default &quot;.env&quot;)
+  -e, --environment string    specify the environment name (default &quot;default&quot;)
   -f, --file string           load appfile spec from file (default &quot;appfile.yaml&quot;)
-      --log-level string      Set log level (default &quot;info&quot;)
+      --log-level string      set log level (default &quot;info&quot;)
 </code></pre>
                 
                   

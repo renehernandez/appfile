@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.0.9](https://github.com/renehernandez/appfile/tree/v0.0.9) (2021-07-11)
+
+**Implemented enhancements:**
+
+- Support reading environment variables from a .env file [\#18](https://github.com/renehernandez/appfile/issues/18)
+- Reads from a .env file with option flag to customize location [\#45](https://github.com/renehernandez/appfile/pull/45)
+
 ## [v0.0.8](https://github.com/renehernandez/appfile/tree/v0.0.8) (2021-03-22)
 
 **Implemented enhancements:**
@@ -9,10 +16,6 @@
 **Fixed bugs:**
 
 - Fix bottle process [\#42](https://github.com/renehernandez/appfile/pull/42)
-
-**Documentation:**
-
-- General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
 
 **Merged pull requests:**
 
@@ -41,6 +44,7 @@
 **Documentation:**
 
 - Add redirect generation [\#32](https://github.com/renehernandez/appfile/pull/32)
+- General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
 
 ## [v0.0.5](https://github.com/renehernandez/appfile/tree/v0.0.5) (2020-12-12)
 

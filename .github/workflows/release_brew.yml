@@ -39,15 +39,15 @@ jobs:
           full_tag=${{ github.event.release.tag_name }}
           tag="${full_tag#?}"
           echo "::set-output name=tag::$tag"
-      - id: print_dir
+      - name: print_dir
         run: |
           ls -al $GITHUB_WORKSPACE
-      - uses: actions/upload-release-asset@v1.0.1
+      - uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+          files: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_content_type: application/gzip
 

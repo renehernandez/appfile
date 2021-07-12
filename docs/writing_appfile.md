@@ -19,10 +19,6 @@ We also added the following functions:
 
 Environments variables can be used anywhere for templating the appfile.
 
-### Note
-
-If you wish to treat your environment variables as strings always, even if they are boolean or numeric values you can use `{{ env "ENV_NAME" | quote }}` or `"{{ env "ENV_NAME" }}"`. These approaches also work with the `requiredEnv` function.
-
 ## Paths Overview
 
 Using spec files in conjunction with CLI arguments can be a bit confusing.

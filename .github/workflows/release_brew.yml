@@ -39,6 +39,9 @@ jobs:
           full_tag=${{ github.event.release.tag_name }}
           tag="${full_tag#?}"
           echo "::set-output name=tag::$tag"
+      - id: print_dir
+        run: |
+          ls -al $GITHUB_WORKSPACE
       - uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -23,6 +23,12 @@ jobs:
     runs-on: macos-10.15
     needs: [update_formula_version]
     steps:
+      - name: Remove default go in path
+        run: |
+          ls -al /usr/local/bin/go*
+          brew unlink go@1.15
+          rm /usr/local/bin/go
+          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps

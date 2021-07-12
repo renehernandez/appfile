@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.0.9](https://github.com/renehernandez/appfile/tree/v0.0.9) (2021-07-11)
+## [v0.0.9](https://github.com/renehernandez/appfile/tree/v0.0.9) (2021-07-12)
 
 **Implemented enhancements:**
 
@@ -43,6 +43,7 @@
 
 **Documentation:**
 
+- Add new environments variables docs [\#46](https://github.com/renehernandez/appfile/pull/46)
 - Add redirect generation [\#32](https://github.com/renehernandez/appfile/pull/32)
 - General status command docs and examples for reading app.yaml directly [\#31](https://github.com/renehernandez/appfile/pull/31)
 

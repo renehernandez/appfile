@@ -23,12 +23,6 @@ jobs:
     runs-on: macos-10.15
     needs: [update_formula_version]
     steps:
-      - name: Remove default go in path
-        run: |
-          ls -al /usr/local/bin/go*
-          brew unlink go@1.15
-          rm /usr/local/bin/go
-          rm /usr/local/bin/gofmt
       - name: Build a bottle using Homebrew
         run: |
           brew tap renehernandez/taps
@@ -39,15 +33,17 @@ jobs:
           full_tag=${{ github.event.release.tag_name }}
           tag="${full_tag#?}"
           echo "::set-output name=tag::$tag"
-      - name: print_dir
+      - id: find_filepath
         run: |
           ls -al $GITHUB_WORKSPACE
+          filepath=$(find . -name 'appfile-*')
+          echo "::set-output name=filepath::$filepath"
       - uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./appfile--${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
+          asset_path: ${{ steps.find_filepath.outputs.filepath }}
           asset_name: appfile-${{ steps.normalize_tag.outputs.tag }}.catalina.bottle.tar.gz
           asset_content_type: application/gzip
 

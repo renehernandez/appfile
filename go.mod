@@ -11,7 +11,7 @@ require (
 	github.com/fatih/color v1.10.0
 	github.com/goccy/go-yaml v1.8.9
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/google/go-cmp v0.5.5
+	github.com/google/go-cmp v0.5.6
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/gosuri/uitable v0.0.4
 	github.com/huandu/xstrings v1.3.2 // indirect
